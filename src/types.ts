@@ -3,7 +3,7 @@ export interface User{
     login: string;
     role: JSON,
     adresseEmail: string;
-    dateOfBirth: Date;
+    dateOfBirth: string;
     status: string;
     premium: boolean;
 }
