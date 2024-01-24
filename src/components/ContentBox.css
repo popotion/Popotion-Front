@@ -1,13 +1,13 @@
 div.contentBox{
-    width:100%;
-    margin:10px auto;
+    width:30%;
+    margin:20px auto;
     display:flex;
     flex-direction:column;
 }
 .top{
     box-shadow: 0 0 0.3rem #999;
     border-radius: 15px 15px 0px 0px;
-    background-color: rgb(140, 200, 250);
+    background-color: #F5B59A;
     border-bottom: black 2px solid;
     padding:8px;
     font-size: 8pt;

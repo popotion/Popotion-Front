@@ -10,7 +10,7 @@ export interface User{
 
 export interface Recipe{
     id: number;
-    auteur: User;
+    author: User;
     title: string,
     description: string;
     details: JSON;
