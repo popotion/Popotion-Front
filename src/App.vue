@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { storeAuthentification } from '@/store/storeAuthentification'
 const router = useRouter()
 </script>
 <template>
   <div id="wrapper">
     <header>
+      <FlashMessage />
       <nav>
         <div>Popotions</div>
         <div @click="router.push({ name: 'allRecipes' })">Recettes</div>
         <div>Catégories</div>
         <div>Favoris</div>
+        <div v-if="!storeAuthentification.estConnecte" @click="router.push({ name: 'login' })">
+          Connexion
+        </div>
       </nav>
     </header>
     <main>

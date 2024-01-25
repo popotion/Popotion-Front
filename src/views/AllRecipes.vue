@@ -15,10 +15,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    class="all-recipe"
-    style="display: grid; grid-gap: 20px; grid-template-columns: 1fr 1fr 1fr 1fr"
-  >
+  <div class="all-recipe">
     <BoiteRecipe v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" :id="recipe.id" />
   </div>
 </template>
+<style scoped>
+.all-recipe {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+</style>

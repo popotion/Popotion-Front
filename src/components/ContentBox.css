@@ -35,8 +35,3 @@ div.contentBox{
     box-shadow: 0 0 0.3rem #000;
     cursor: pointer;
 }
-.all-recipe {
-    display: grid;
-    grid-gap: 40px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-}

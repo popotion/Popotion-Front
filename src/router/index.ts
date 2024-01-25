@@ -3,6 +3,8 @@ import Home from '@/views/Home.vue'
 import AllRecipes from '@/views/AllRecipes.vue'
 import SingleRecipe from '@/views/SingleRecipe.vue'
 import SingleUser from '@/views/singleUser.vue'
+import Login from '@/views/Login.vue'
+
 
 
 const router = createRouter({
@@ -30,6 +32,11 @@ const router = createRouter({
             path: '/users/:id',
             name: 'singleUser',
             component: SingleUser
+        },
+        { 
+            path: '/auth', 
+            name: 'login',
+            component: Login 
         }
     ]
 })
