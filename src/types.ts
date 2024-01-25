@@ -21,6 +21,7 @@ export interface Recipe{
 export interface Category{
     id: number;
     name: string;
+    recipe: Recipe;
 }
 
 export interface Comment{
