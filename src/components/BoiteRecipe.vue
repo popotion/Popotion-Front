@@ -4,7 +4,6 @@ import type { Recipe } from '@/types'
 
 const router = useRouter()
 const props = defineProps<{ recipe: Recipe }>()
-console.log(props.recipe)
 </script>
 
 <template>

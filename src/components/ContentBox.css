@@ -1,5 +1,5 @@
 div.contentBox{
-    width:30%;
+    width:100%;
     margin:20px auto;
     display:flex;
     flex-direction:column;
@@ -29,8 +29,14 @@ div.contentBox{
     background-color: aliceblue;
     box-shadow: 0 0 0.3rem #999;
     font: 1.2em "Fira Sans", sans-serif;
+    border-radius: 0px 0px 15px 15px;
 }
 .content.clickable:hover{
     box-shadow: 0 0 0.3rem #000;
     cursor: pointer;
+}
+.all-recipe {
+    display: grid;
+    grid-gap: 40px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
