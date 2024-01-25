@@ -15,7 +15,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="all-recipe">
+  <div class="all-categories">
     <BoiteCategory
       v-for="category in categories"
       :key="category.id"
@@ -25,7 +25,7 @@ onMounted(() => {
   </div>
 </template>
 <style scoped>
-.all-recipe {
+.all-categories {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr 1fr 1fr 1fr;

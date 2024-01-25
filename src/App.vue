@@ -10,7 +10,7 @@ const router = useRouter()
       <nav>
         <div>Popotions</div>
         <div @click="router.push({ name: 'allRecipes' })">Recettes</div>
-        <div>Catégories</div>
+        <div @click="router.push({ name: 'allCategories' })">Catégories</div>
         <div>Favoris</div>
         <div v-if="!storeAuthentification.estConnecte" @click="router.push({ name: 'login' })">
           Connexion

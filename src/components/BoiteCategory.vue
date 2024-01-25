@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter, RouterLink } from 'vue-router'
-import type { Category } from '@/types'
+import type { Recipe } from '@/types'
 
 const router = useRouter()
 const props = defineProps<{ recipe: Recipe }>()
