@@ -4,6 +4,7 @@ import AllRecipes from '@/views/AllRecipes.vue'
 import AllCategories from '@/views/AllCategories.vue'
 import SingleRecipe from '@/views/SingleRecipe.vue'
 import SingleUser from '@/views/singleUser.vue'
+import FormulaireRecipeVue from '@/views/FormulaireRecipe.vue'
 import Login from '@/views/Login.vue'
 
 
@@ -44,6 +45,11 @@ const router = createRouter({
             path: '/auth', 
             name: 'login',
             component: Login 
+        },
+        {
+            path: '/formulaireRecipe',
+            name: 'formulaireRecipe',
+            component: FormulaireRecipeVue
         }
     ]
 })

@@ -26,7 +26,13 @@ function disconnect(): void {
           Connexion
         </div>
         <div v-if="storeAuthentification.estConnecte" @click="disconnect()">Déconnexion</div>
-        <div class="post" v-if="storeAuthentification.estConnecte">+ Poster</div>
+        <div
+          class="post"
+          v-if="storeAuthentification.estConnecte"
+          @click="router.push({ name: 'formulaireRecipe' })"
+        >
+          + Poster
+        </div>
       </nav>
     </header>
     <main>
@@ -54,6 +60,8 @@ header {
   position: sticky;
   top: 0px;
   padding: 20px;
+  background-color: white;
+  border-bottom: solid 1px black;
 }
 header h1 {
   text-align: center;
