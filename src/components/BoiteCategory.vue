@@ -1,28 +1,42 @@
 <script setup lang="ts">
 import { useRouter, RouterLink } from 'vue-router'
-import type { Recipe } from '@/types'
+import type { Category } from '@/types'
+import BoiteRecipe from '@/components/BoiteRecipe.vue'
 
 const router = useRouter()
-const props = defineProps<{ recipe: Recipe }>()
+const props = defineProps<{ category: Category }>()
 </script>
 
 <template>
   <div class="contentBox">
     <div class="top">
-      <router-link :to="{ name: 'singleUser', params: { id: recipe.author.id } }" class="clickable">
-        {{ recipe.author.login }}
-      </router-link>
-      -- {{ new Date(recipe.datePublication).toLocaleString('fr') }}
+      <div>
+        <h2>Catégorie : {{ category.name }}</h2>
+        <h3>{{ category.description }}</h3>
+      </div>
     </div>
     <div
-      class="content clickable"
-      @click="router.push({ name: 'singleRecipe', params: { id: recipe.id } })"
+      class="all-category"
+      @click="router.push({ name: 'singleRecipe', params: { id: category.recipes.id } })"
     >
-      {{ recipe.description }}
+      <BoiteRecipe
+        v-for="recipe in category.recipes"
+        :key="recipe.id"
+        :recipe="recipe"
+        :id="recipe.id"
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
-@import '@/components/ContentBox.css';
+.all-category {
+  display: block;
+}
+
+div.top {
+  background-color: white;
+  box-shadow: none;
+  border: none;
+}
 </style>

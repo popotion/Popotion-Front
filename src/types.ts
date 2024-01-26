@@ -1,7 +1,7 @@
 export interface User{
     id: number;
     login: string;
-    role: JSON,
+    role: Array<string>;
     adresseEmail: string;
     dateOfBirth: string;
     status: string;
@@ -11,17 +11,22 @@ export interface User{
 export interface Recipe{
     id: number;
     author: User;
-    title: string,
+    title: string;
     description: string;
-    details: JSON;
-    preparation: JSON;
+    details: Array<string>;
+    preparation: Array<string>;
     datePublication: string;
+    compositions: Array<Object>; 
+    categories: Array<Object>;
+    comments: Array<Object>;
+    favorites: Array<Object>;
 }
 
 export interface Category{
     id: number;
     name: string;
-    recipe: Recipe;
+    description: string;
+    recipes: Array<Recipe>;
 }
 
 export interface Comment{
@@ -29,6 +34,7 @@ export interface Comment{
     auteur: User;
     recipe: Recipe;
     message: string;
+    datePublication: string;
 }
 
 export interface Favorite{

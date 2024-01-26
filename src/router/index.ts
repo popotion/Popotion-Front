@@ -5,6 +5,7 @@ import AllCategories from '@/views/AllCategories.vue'
 import SingleRecipe from '@/views/SingleRecipe.vue'
 import SingleUser from '@/views/singleUser.vue'
 import Login from '@/views/Login.vue'
+import SingleCategory from '@/views/SingleCategory.vue'
 
 
 
@@ -38,6 +39,11 @@ const router = createRouter({
             path: '/users/:id',
             name: 'singleUser',
             component: SingleUser
+        },
+        {
+            path: '/categories/:id',
+            name: 'singleCategory',
+            component: SingleCategory
         },
         { 
             path: '/auth', 

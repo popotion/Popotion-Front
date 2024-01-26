@@ -3,7 +3,44 @@ import { ref, type Ref, onMounted } from 'vue'
 import type { Recipe } from '@/types'
 import BoiteRecipe from '@/components/BoiteRecipe.vue'
 
-const recipes: Ref<Recipe[]> = ref([])
+const recipes: Ref<Recipe[]> = ref([
+  {
+    title: 'Blur',
+    description: 'string',
+    recipeDetails: {
+      difficulty: 0,
+      preparationTime: 0,
+      nbPersons: 0
+    },
+    preparation: ['string'],
+    categoryNames: ['Exotique'],
+    compositionsData: [
+      {
+        ingredientName: 'Banane',
+        quantity: 0,
+        unit: 'string'
+      }
+    ]
+  },
+  {
+    title: 'Blur',
+    description: 'string',
+    recipeDetails: {
+      difficulty: 0,
+      preparationTime: 0,
+      nbPersons: 0
+    },
+    preparation: ['string'],
+    categoryNames: ['Exotique'],
+    compositionsData: [
+      {
+        ingredientName: 'Banane',
+        quantity: 0,
+        unit: 'string'
+      }
+    ]
+  }
+])
 
 onMounted(() => {
   fetch('http://127.0.0.1:8000/api/recipes')

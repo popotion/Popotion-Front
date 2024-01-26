@@ -24,10 +24,3 @@ onMounted(() => {
     />
   </div>
 </template>
-<style scoped>
-.all-categories {
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-</style>
