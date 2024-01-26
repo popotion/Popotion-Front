@@ -12,7 +12,7 @@ const props = defineProps<{ recipe: Recipe }>()
       <!--     <router-link :to="{ name: 'singleUser', params: { id: recipe.author.id } }" class="clickable">
         {{ recipe.author.login }}
       </router-link>  -->
-      -- {{ new Date(recipe.datePublication).toLocaleString('fr') }}
+      Postée le {{ new Date(recipe.datePublication).toLocaleString('fr') }}
     </div>
     <div
       class="content clickable"

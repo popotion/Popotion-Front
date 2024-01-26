@@ -9,6 +9,14 @@ const connectingUser = ref({
   password: ''
 })
 
+function disconnect(): void {
+  storeAuthentification.deconnexion()
+  flashMessage.show({
+    type: 'warning',
+    title: 'Vous êtes déconnecté'
+  })
+}
+
 // à completer
 function connect(): void {
   storeAuthentification.connexion(

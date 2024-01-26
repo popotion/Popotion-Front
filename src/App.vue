@@ -1,20 +1,32 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { storeAuthentification } from '@/store/storeAuthentification'
+import { flashMessage } from '@smartweb/vue-flash-message'
+
 const router = useRouter()
+
+function disconnect(): void {
+  storeAuthentification.deconnexion()
+  flashMessage.show({
+    type: 'warning',
+    title: 'Vous êtes déconnecté'
+  })
+}
 </script>
 <template>
   <div id="wrapper">
     <header>
       <FlashMessage />
       <nav>
-        <div>Popotions</div>
+        <div @click="router.push({ name: 'home' })">Popotions</div>
         <div @click="router.push({ name: 'allRecipes' })">Recettes</div>
         <div @click="router.push({ name: 'allCategories' })">Catégories</div>
-        <div>Favoris</div>
+        <div v-if="storeAuthentification.estConnecte">Favoris</div>
         <div v-if="!storeAuthentification.estConnecte" @click="router.push({ name: 'login' })">
           Connexion
         </div>
+        <div v-if="storeAuthentification.estConnecte" @click="disconnect()">Déconnexion</div>
+        <div class="post" v-if="storeAuthentification.estConnecte">+ Poster</div>
       </nav>
     </header>
     <main>
@@ -24,6 +36,13 @@ const router = useRouter()
 </template>
 
 <style scoped>
+.post {
+  margin-left: 20px;
+  font-weight: 600;
+  padding: 5px;
+  background-color: #f5b59a;
+  border-radius: 35px;
+}
 #wrapper {
   display: flex;
   flex-direction: column;
@@ -45,7 +64,7 @@ nav {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 nav > div:first-child {
