@@ -17,7 +17,7 @@ const props = defineProps<{ category: Category }>()
     </div>
     <div
       class="all-category"
-      @click="router.push({ name: 'singleRecipe', params: { id: category.recipes.id } })"
+      @click="router.push({ name: 'singleRecipe', params: { id: category.id } })"
     >
       <BoiteRecipe
         v-for="recipe in category.recipes"
