@@ -6,6 +6,7 @@ import SingleRecipe from '@/views/SingleRecipe.vue'
 import SingleUser from '@/views/singleUser.vue'
 import FormulaireRecipeVue from '@/views/FormulaireRecipe.vue'
 import Login from '@/views/Login.vue'
+import Inscription from '@/views/Inscription.vue'
 
 
 
@@ -50,6 +51,11 @@ const router = createRouter({
             path: '/formulaireRecipe',
             name: 'formulaireRecipe',
             component: FormulaireRecipeVue
+        },
+        {
+            path: '/inscription',
+            name: 'inscription',
+            component: Inscription
         }
     ]
 })

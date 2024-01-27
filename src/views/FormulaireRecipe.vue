@@ -37,12 +37,12 @@ function envoyer() {
       emit('updated')
       flashMessage.show({
         type: 'success',
-        title: 'Voter recette a bien été créée !'
+        title: 'Votre recette a bien été créée !'
       })
     } else {
       flashMessage.show({
-        type: 'success',
-        title: 'Voter recette a bien été créée !'
+        type: 'error',
+        title: 'Champs invalides ou manquants !'
       })
     }
   })

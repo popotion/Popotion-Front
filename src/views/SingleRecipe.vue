@@ -7,20 +7,20 @@ import BoiteRecipe from '@/components/BoiteRecipe.vue'
 const router = useRouter()
 const id = router.currentRoute.value.params.id
 const recipe: Ref<Recipe> = ref({
-  title: 'Angel',
-  description: "Here I'AM",
+  title: 'chargement',
+  description: 'chargementM',
   recipeDetails: {
     difficulty: 0,
     preparationTime: 0,
     nbPersons: 0
   },
-  preparation: ['string'],
-  categoryNames: ['Exotique'],
+  preparation: ['chargement'],
+  categoryNames: ['chargement'],
   compositionsData: [
     {
-      ingredientName: 'string',
+      ingredientName: 'chargement',
       quantity: 0,
-      unit: 'string'
+      unit: 'chargement'
     }
   ]
 })

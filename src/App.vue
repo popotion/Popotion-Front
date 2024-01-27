@@ -25,6 +25,12 @@ function disconnect(): void {
         <div v-if="!storeAuthentification.estConnecte" @click="router.push({ name: 'login' })">
           Connexion
         </div>
+        <div
+          v-if="!storeAuthentification.estConnecte"
+          @click="router.push({ name: 'inscription' })"
+        >
+          Inscription
+        </div>
         <div v-if="storeAuthentification.estConnecte" @click="disconnect()">Déconnexion</div>
         <div
           class="post"
