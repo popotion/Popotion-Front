@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import router from '@/router'
 import { flashMessage } from '@smartweb/vue-flash-message'
+
 //faire des trucs avec storeAuth.JWT qui contient mon JWT
 const inscriptionUser = ref({
   login: '',

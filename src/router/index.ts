@@ -7,7 +7,7 @@ import SingleUser from '@/views/singleUser.vue'
 import FormulaireRecipeVue from '@/views/FormulaireRecipe.vue'
 import Login from '@/views/Login.vue'
 import Inscription from '@/views/Inscription.vue'
-
+import AdminPanel from '@/views/AdminPanel.vue'
 
 
 const router = createRouter({
@@ -56,6 +56,16 @@ const router = createRouter({
             path: '/inscription',
             name: 'inscription',
             component: Inscription
+        },
+        {
+            path: '/adminPanel',
+            name: 'adminPanel',
+            component: AdminPanel
+        },
+        {
+            path: '/profile',
+            name: 'profile',
+            component: SingleUser
         }
     ]
 })

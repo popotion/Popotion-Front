@@ -15,12 +15,7 @@ const props = defineProps<{ category: Category }>()
         <h3>{{ category.description }}</h3>
       </div>
     </div>
-    <div
-      v-for="recipe in category.recipes"
-      :key="recipe.id"
-      class="all-category"
-      @click="router.push({ name: 'singleRecipe', params: { id: recipe.id } })"
-    >
+    <div v-for="recipe in category.recipes" :key="recipe.id" class="all-category">
       <BoiteRecipe :key="recipe.id" :recipe="recipe" :id="recipe.id" />
     </div>
   </div>

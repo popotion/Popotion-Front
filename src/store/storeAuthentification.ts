@@ -1,8 +1,11 @@
 import { reactive, ref } from 'vue'
+import  VueJwtDecode  from 'vue-jwt-decode'
 
 export const storeAuthentification = reactive({
   estConnecte: false,
   JWT: "",
+  id: 2,
+  premium: false,
   connexion(login: string, motDePasse: string, succes:()=>void, echec:()=>void): void {
     const connectingUser = ref({
         login: login,
@@ -20,6 +23,8 @@ export const storeAuthentification = reactive({
           if (response.status === 201 || response.status === 200) {
               this.JWT = data.token;
               this.estConnecte = true;
+              this.premium = VueJwtDecode.decode(this.JWT).premium
+              this.id = VueJwtDecode.decode(this.JWT).id
               succes();
           }
           else {

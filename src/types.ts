@@ -1,11 +1,13 @@
 export interface User{
     id: number;
     login: string;
+    photoProfil: string;
     role: Array<string>;
     adresseEmail: string;
     dateOfBirth: string;
     status: string;
     premium: boolean;
+    isAdministrator: boolean;
 }
 
 export interface Recipe{
