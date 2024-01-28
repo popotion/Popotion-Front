@@ -63,7 +63,7 @@ function inscription(): void {
       </div>
       <div class="group">
         <label>Date de naissance</label>
-        <input v-model="inscriptionUser.dateOfBirth" />
+        <input type="date" v-model="inscriptionUser.dateOfBirth" />
         <p></p>
       </div>
       <button type="submit">Connexion</button>
