@@ -39,7 +39,10 @@ function disconnect(): void {
         >
           + Poster
         </div>
-        <div v-if="storeAuthentification.estConnecte" @click="router.push({ name: 'profile' })">
+        <div
+          v-if="storeAuthentification.estConnecte"
+          @click="router.push({ name: 'profile', params: { id: storeAuthentification.id } })"
+        >
           Profil
         </div>
         <div @click="router.push({ name: 'adminPanel' })"><h3>Panneau Admin</h3></div>

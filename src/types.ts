@@ -8,6 +8,7 @@ export interface User{
     status: string;
     premium: boolean;
     isAdministrator: boolean;
+    profileImage: string;
 }
 
 export interface Recipe{

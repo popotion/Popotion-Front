@@ -63,7 +63,7 @@ const router = createRouter({
             component: AdminPanel
         },
         {
-            path: '/profile',
+            path: '/user/:id',
             name: 'profile',
             component: SingleUser
         }

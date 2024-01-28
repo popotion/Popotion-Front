@@ -1,33 +1,21 @@
 <script setup lang="ts">
 import type { User } from '@/types'
 import md5 from 'crypto-js/md5'
-import { onMounted } from 'vue'
-import { reactive } from 'vue'
+import { defineProps } from 'vue'
 
 const props = defineProps<{ user: User }>()
-let state = reactive({
-  url: ''
-})
-async function loadImage() {
-  try {
-    const response = await fetch(
-      'https://myavatar.iut.romainmillan.fr/fr/avatar/' + md5(props.user.mailAdress)
-    )
-    state.url = await response.text()
-  } catch (error) {
-    console.error('Erreur lors du chargement')
-  }
-}
-onMounted(async () => {
-  await loadImage()
-})
+console.log(props.user)
 </script>
 
 <template>
   <div class="contentBox">
     <h1 class="top">Profil de {{ user.login }}</h1>
     <div>
-      <img id="imgProfile" :src="state.url" alt="photo de profil" />
+      <img
+        id="imgProfile"
+        :src="'https://myavatar.iut.romainmillan.fr/fr/avatar/' + md5(user.mailAdress)"
+        alt="photo de profil"
+      />
     </div>
     <div class="content">
       <div class="group">
@@ -52,9 +40,9 @@ onMounted(async () => {
   justify-content: flex-start;
   padding: 20px;
   box-sizing: border-box;
+}
 
-  h2 {
-    margin-top: 20px;
-  }
+h2 {
+  margin-top: 20px;
 }
 </style>

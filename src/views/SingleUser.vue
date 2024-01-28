@@ -7,24 +7,67 @@ import BoiteRecipe from '@/components/BoiteRecipe.vue'
 
 const router = useRouter()
 const id = router.currentRoute.value.params.id
+
 const user: Ref<User> = ref({
-  title: 'chargement',
-  description: 'chargementM',
-  recipeDetails: {
-    difficulty: 0,
-    preparationTime: 0,
-    nbPersons: 0
-  },
-  preparation: ['chargement'],
-  categoryNames: ['chargement'],
-  compositionsData: [
+  id: 0,
+  login: 'string',
+  status: 'string',
+  adresseEmail: 'string',
+  premium: true,
+  recipes: [
     {
-      ingredientName: 'chargement',
-      quantity: 0,
-      unit: 'chargement'
+      id: 0,
+      title: 'string',
+      categories: [
+        {
+          id: 0,
+          name: 'string'
+        }
+      ],
+      imageName: 'string',
+      nbComments: 0,
+      nbFavorites: 0
     }
-  ]
+  ],
+  comments: [
+    {
+      message: 'string',
+      recipe: {
+        id: 0,
+        title: 'string',
+        categories: [
+          {
+            id: 0,
+            name: 'string'
+          }
+        ],
+        imageName: 'string',
+        nbComments: 0,
+        nbFavorites: 0
+      },
+      datePublication: '2024-01-28T09:49:57.763Z'
+    }
+  ],
+  favorites: [
+    {
+      recipe: {
+        id: 0,
+        title: 'string',
+        categories: [
+          {
+            id: 0,
+            name: 'string'
+          }
+        ],
+        imageName: 'string',
+        nbComments: 0,
+        nbFavorites: 0
+      }
+    }
+  ],
+  coverImageName: 'string'
 })
+
 const recipes: Ref<Recipe[]> = ref({
   title: 'chargement',
   description: 'chargementM',
@@ -44,12 +87,13 @@ const recipes: Ref<Recipe[]> = ref({
   ]
 })
 
-onMounted(() => {
-  fetch(encodeURI(String('http://127.0.0.1:8000/api/users/' + id)))
+onMounted(async () => {
+  await fetch(encodeURI(String('http://127.0.0.1:8000/api/users/' + id)))
     .then((reponsehttp) => reponsehttp.json())
     .then((reponseJSON) => {
       user.value = reponseJSON
     })
+
   fetch(encodeURI(String('http://127.0.0.1:8000/api/user/' + id + '/recipe')))
     .then((reponsehttp) => reponsehttp.json())
     .then((reponseJSON) => {
