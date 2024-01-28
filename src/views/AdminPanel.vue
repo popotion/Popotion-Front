@@ -31,7 +31,6 @@ onMounted(() => {
       :refresh="refresh"
       :id="user.id"
     />
-    {{ users }}
   </div>
 </template>
 <style scoped>

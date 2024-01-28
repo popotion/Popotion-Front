@@ -5,38 +5,20 @@ import BoiteRecipe from '@/components/BoiteRecipe.vue'
 
 const recipes: Ref<Recipe[]> = ref([
   {
-    title: 'Blur',
-    description: 'string',
+    title: 'chargement',
+    description: 'chargement',
     recipeDetails: {
       difficulty: 0,
       preparationTime: 0,
       nbPersons: 0
     },
-    preparation: ['string'],
-    categoryNames: ['Exotique'],
+    preparation: ['chargement'],
+    categoryNames: ['chargement'],
     compositionsData: [
       {
-        ingredientName: 'Banane',
+        ingredientName: 'chargement',
         quantity: 0,
-        unit: 'string'
-      }
-    ]
-  },
-  {
-    title: 'Blur',
-    description: 'string',
-    recipeDetails: {
-      difficulty: 0,
-      preparationTime: 0,
-      nbPersons: 0
-    },
-    preparation: ['string'],
-    categoryNames: ['Exotique'],
-    compositionsData: [
-      {
-        ingredientName: 'Banane',
-        quantity: 0,
-        unit: 'string'
+        unit: 'chargement'
       }
     ]
   }
