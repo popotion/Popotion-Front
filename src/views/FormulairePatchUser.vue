@@ -29,7 +29,6 @@ function getUser(): void {
 }
 
 function update(): void {
-  console.log(JSON.stringify(inscriptionUser.value))
   fetch('http://127.0.0.1:8000/api/users/' + id, {
     method: 'PATCH',
     headers: {

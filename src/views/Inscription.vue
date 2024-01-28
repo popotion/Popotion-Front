@@ -3,16 +3,14 @@ import { ref } from 'vue'
 import router from '@/router'
 import { flashMessage } from '@smartweb/vue-flash-message'
 
-//faire des trucs avec storeAuth.JWT qui contient mon JWT
 const inscriptionUser = ref({
   login: '',
   plainPassword: '',
   mailAdress: '',
   dateOfBirth: ''
 })
-// à completer
+
 function inscription(): void {
-  console.log(new Date(inscriptionUser.value.dateOfBirth))
   fetch('http://127.0.0.1:8000/api/users', {
     method: 'POST',
     headers: {
