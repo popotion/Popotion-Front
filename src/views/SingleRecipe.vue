@@ -2,23 +2,34 @@
 import type { Recipe } from '@/types'
 import { useRouter } from 'vue-router'
 import { ref, type Ref, onMounted } from 'vue'
-import BoiteRecipe from '@/components/BoiteRecipe.vue'
+import BoiteRecipeDetails from '@/components/BoiteRecipeDetails.vue'
 
 const router = useRouter()
 const id = router.currentRoute.value.params.id
 const recipe: Ref<Recipe> = ref({
   title: 'chargement',
-  description: 'chargementM',
-  recipeDetails: {
-    difficulty: 0,
-    preparationTime: 0,
-    nbPersons: 0
-  },
+  description: 'chargement',
+  details: ['chargement', 'chargement', 'chargement'],
   preparation: ['chargement'],
-  categoryNames: ['chargement'],
-  compositionsData: [
+  author: {
+    id: 0,
+    login: 'chargement',
+    premium: false
+  },
+  categories: [
     {
-      ingredientName: 'chargement',
+      id: 0,
+      name: 'chargement'
+    }
+  ],
+  comments: [],
+  favorites: [],
+  datePublication: '2024-01-27T00:38:23+01:00',
+  imageName: '',
+  ingredients: [
+    {
+      id: 1,
+      ingredientName: 'tchargementest2',
       quantity: 0,
       unit: 'chargement'
     }
@@ -35,6 +46,6 @@ onMounted(() => {
 
 <template>
   <div>
-    <BoiteRecipe :key="recipe.id" :recipe="recipe" :id="recipe.id" />
+    <BoiteRecipeDetails :key="recipe.id" :recipe="recipe" :id="recipe.id" />
   </div>
 </template>

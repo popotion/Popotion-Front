@@ -1,38 +1,87 @@
 <script setup lang="ts">
 import { useRouter, RouterLink } from 'vue-router'
 import type { Recipe } from '@/types'
+import { storeAuthentification } from '@/store/storeAuthentification'
 
 const router = useRouter()
 const props = defineProps<{ recipe: Recipe }>()
 </script>
 
 <template>
-  <div class="container">
+  <div class="container mt">
     <div class="title">{{ recipe.title }}</div>
     <div
-      class="categories"
+      class="categories mt"
       v-for="category in recipe.categories"
       :key="category.id"
       :category="category"
       :id="category.id"
     >
-      {{ category }}>
+      {{ category.name }}
     </div>
+    <div class="description mt">
+      <h3>Note de l'autheur</h3>
+      <div>{{ recipe.description }}</div>
+    </div>
+    <div class="ingredients mt">
+      <h3>Ingrédients</h3>
+      <div class="ingredients-list" v-for="ingredient in recipe.ingredients" :key="ingredient.id">
+        <span class="ing-elem first">{{ ingredient.ingredientName }}</span>
+        <span class="ing-elem">Quantité : {{ ingredient.quantity }}</span>
+        <span class="ing-elem">Unité : {{ ingredient.unit }}</span>
+      </div>
+    </div>
+    <div class="details mt">
+      <h3>Détails</h3>
+      <div class="elements">Difficulté : {{ recipe.details[0] }}</div>
+      <div class="elements">Temps de préparation : {{ recipe.details[1] }}</div>
+      <div class="elements">Nombre de personnes : {{ recipe.details[2] }}</div>
+      <div class="preparation">Préparation</div>
+      <div v-for="p in recipe.preparation" :key="p">- {{ p }}</div>
+    </div>
+    <p v-if="recipe.author.id === storeAuthentification.id">✎</p>
   </div>
 </template>
 
 <style scoped>
+p {
+  font-size: 20px;
+  background-color: rgb(14, 202, 70);
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+.first {
+  font-size: 15px;
+  font-weight: bold;
+}
+.ingredients-list {
+  display: flex;
+  flex-direction: column;
+}
+.preparation {
+  margin-top: 10px;
+}
+.elements {
+  margin-top: 10px;
+}
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.mt {
+  margin-top: 20px;
+}
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px;
-  width: 100%;
-  max-width: 800px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+.categories {
+  padding: 8px;
+  background-color: grey;
+  border-radius: 20px;
+  color: white;
 }
 </style>

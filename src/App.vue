@@ -45,7 +45,9 @@ function disconnect(): void {
         >
           Profil
         </div>
-        <div @click="router.push({ name: 'adminPanel' })"><h3>Panneau Admin</h3></div>
+        <div @click="router.push({ name: 'adminPanel' })">
+          <h3>Panneau Admin</h3>
+        </div>
       </nav>
     </header>
     <main>

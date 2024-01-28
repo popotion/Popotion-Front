@@ -4,7 +4,6 @@ import md5 from 'crypto-js/md5'
 import { defineProps } from 'vue'
 
 const props = defineProps<{ user: User }>()
-console.log(props.user)
 </script>
 
 <template>

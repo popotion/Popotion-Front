@@ -18,11 +18,6 @@ const props = defineProps<{ recipe: Recipe }>()
     <div class="content clickable">
       <h2>{{ recipe.title }}</h2>
       <div>{{ recipe.description }}</div>
-      <p
-        style="float: right; background-color: rgb(14, 202, 70); padding: 5px; border-radius: 10px"
-      >
-        ✎
-      </p>
     </div>
   </div>
 </template>

@@ -6,6 +6,7 @@ export const storeAuthentification = reactive({
   JWT: "",
   id: -1,
   premium: false,
+  role: [],
   connexion(login: string, motDePasse: string, succes:()=>void, echec:()=>void): void {
     const connectingUser = ref({
         login: login,
@@ -25,6 +26,8 @@ export const storeAuthentification = reactive({
               this.estConnecte = true;
               this.premium = VueJwtDecode.decode(this.JWT).premium
               this.id = VueJwtDecode.decode(this.JWT).id
+              this.role = VueJwtDecode.decode(this.JWT).role
+              console.log(this.role);
               
               succes();
           }

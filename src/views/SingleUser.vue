@@ -14,6 +14,7 @@ const user: Ref<User> = ref({
   status: 'string',
   adresseEmail: 'string',
   premium: true,
+  roles: ['string'],
   recipes: [
     {
       id: 0,

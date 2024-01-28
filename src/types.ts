@@ -7,7 +7,6 @@ export interface User{
     dateOfBirth: string;
     status: string;
     premium: boolean;
-    isAdministrator: boolean;
     profileImage: string;
 }
 
@@ -19,6 +18,10 @@ export interface Recipe{
     details: Array<string>;
     preparation: Array<string>;
     datePublication: string;
+    details: Array<Object>;
+    ingredients: Array<Object>;
+    difficulty: number;
+    nbPersons: number;
     compositions: Array<Object>; 
     categories: Array<Object>;
     comments: Array<Object>;
