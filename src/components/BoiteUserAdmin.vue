@@ -25,7 +25,9 @@ async function deleteUser() {
       </div>
       <div>
         <button class="suppr" @click="deleteUser()">✖</button>
-        <button class="edit">✎</button>
+        <router-link :to="{ name: 'formulaireUpdateUser', params: { id: user.id } }">
+          <button class="edit">✎</button>
+        </router-link>
       </div>
     </div>
   </div>

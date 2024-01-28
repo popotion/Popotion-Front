@@ -2,7 +2,7 @@ export interface User{
     id: number;
     login: string;
     photoProfil: string;
-    role: Array<string>;
+    roles: Array<string>;
     adresseEmail: string;
     dateOfBirth: string;
     status: string;
@@ -15,7 +15,6 @@ export interface Recipe{
     author: User;
     title: string;
     description: string;
-    details: Array<string>;
     preparation: Array<string>;
     datePublication: string;
     details: Array<Object>;

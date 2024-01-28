@@ -12,6 +12,15 @@ function disconnect(): void {
     title: 'Vous êtes déconnecté'
   })
 }
+
+function isAdmin() {
+  for (let i = 0; i < storeAuthentification.roles.length; i++) {
+    if (storeAuthentification.roles[i] === 'ROLE_ADMIN') {
+      return true
+    }
+  }
+  return false
+}
 </script>
 <template>
   <div id="wrapper">
@@ -21,7 +30,7 @@ function disconnect(): void {
         <div @click="router.push({ name: 'home' })">Popotions</div>
         <div @click="router.push({ name: 'allRecipes' })">Recettes</div>
         <div @click="router.push({ name: 'allCategories' })">Catégories</div>
-        <div v-if="storeAuthentification.estConnecte">Favoris</div>
+        <!-- <div v-if="storeAuthentification.estConnecte">Favoris</div> -->
         <div v-if="!storeAuthentification.estConnecte" @click="router.push({ name: 'login' })">
           Connexion
         </div>
@@ -45,8 +54,11 @@ function disconnect(): void {
         >
           Profil
         </div>
-        <div @click="router.push({ name: 'adminPanel' })">
-          <h3>Panneau Admin</h3>
+        <div
+          v-if="isAdmin() && storeAuthentification.estConnecte"
+          @click="router.push({ name: 'adminPanel' })"
+        >
+          <h3>Administration</h3>
         </div>
       </nav>
     </header>

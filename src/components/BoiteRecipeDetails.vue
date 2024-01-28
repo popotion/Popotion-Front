@@ -2,9 +2,33 @@
 import { useRouter, RouterLink } from 'vue-router'
 import type { Recipe } from '@/types'
 import { storeAuthentification } from '@/store/storeAuthentification'
+import { flashMessage } from '@smartweb/vue-flash-message'
 
 const router = useRouter()
 const props = defineProps<{ recipe: Recipe }>()
+
+function deleteRecipe() {
+  fetch(`http://127.0.0.1:8000/api/recipes/${props.recipe.id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${storeAuthentification.JWT}`
+    }
+  }).then((response) => {
+    if (response.status === 204 || response.status === 200) {
+      router.push('/home')
+      flashMessage.show({
+        type: 'success',
+        title: 'Recette supprimée'
+      })
+    } else {
+      router.push('/home')
+      flashMessage.show({
+        type: 'error',
+        title: 'Erreur lors de la suppression de la recette'
+      })
+    }
+  })
+}
 </script>
 
 <template>
@@ -39,16 +63,41 @@ const props = defineProps<{ recipe: Recipe }>()
       <div class="preparation">Préparation</div>
       <div v-for="p in recipe.preparation" :key="p">- {{ p }}</div>
     </div>
-    <p v-if="recipe.author.id === storeAuthentification.id">✎</p>
+    <div class="btn-container">
+      <router-link :to="{ name: 'formulaireUpdateRecipe', params: { id: recipe.id } }">
+        <div class="update" v-if="recipe.author.id === storeAuthentification.id">✎</div>
+      </router-link>
+      <button
+        @click="deleteRecipe()"
+        class="delete"
+        v-if="recipe.author.id === storeAuthentification.id"
+      >
+        ✖
+      </button>
+    </div>
   </div>
 </template>
 
 <style scoped>
-p {
+.btn-container {
+  display: flex;
+  margin-top: 20px;
+}
+.update {
   font-size: 20px;
   background-color: rgb(14, 202, 70);
-  padding: 10px 15px;
+  padding: 15px 20px;
   border-radius: 10px;
+  color: black;
+}
+
+.delete {
+  font-size: 20px;
+  background-color: rgb(255, 46, 46);
+  border-radius: 10px;
+  padding: 15px 20px;
+  color: black;
+  border: none;
 }
 .first {
   font-size: 15px;

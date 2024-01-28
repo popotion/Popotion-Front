@@ -1,19 +1,53 @@
 <script setup lang="ts">
 import { storeAuthentification } from '@/store/storeAuthentification.ts'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { flashMessage } from '@smartweb/vue-flash-message'
+import router from '@/router'
 
 const emit = defineEmits<{ updated: [] }>()
+let titre = ref('')
+let description = ref('')
+let preparation = ref('')
+let categories = ref('')
+let ingredientName = ref('')
+let quantity = ref('')
+let unit = ref('')
+
+const id = router.currentRoute.value.params.id
+
+const inscriptionRecipe = ref({
+  title: '',
+  description: '',
+  preparation: [],
+  categoryNames: [],
+  ingredients: [
+    {
+      ingredientName: '',
+      quantity: 0,
+      unit: ''
+    }
+  ],
+  imageName: ''
+})
+
+// function getRecipe(): void {
+//   fetch('http://127.0.0.1:8000/api/recipes/' + id, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/ld+json'
+//     }
+//   }).then((response) => {
+//     response.json().then((data) => {
+//       inscriptionRecipe.value = data
+//       console.log(inscriptionRecipe.value)
+//     })
+//   })
+// }
 
 function envoyer() {
   const body = {
     title: titre.value,
     description: description.value,
-    recipeDetails: {
-      difficulty: difficulty.value,
-      preparationTime: preparationTime.value,
-      nbPersons: nbPersons.value
-    },
     preparation: [preparation.value],
     categoryNames: [categories.value],
     compositionsData: [
@@ -26,10 +60,10 @@ function envoyer() {
     imageName: ''
   }
 
-  fetch('http://127.0.0.1:8000/api/recipes', {
-    method: 'POST',
+  fetch('http://127.0.0.1:8000/api/recipes/' + id, {
+    method: 'PATCH',
     headers: {
-      'Content-Type': 'application/ld+json',
+      'Content-Type': 'application/merge-patch+json',
       Authorization: `Bearer ${storeAuthentification.JWT}`
     },
     body: JSON.stringify(body)
@@ -38,7 +72,7 @@ function envoyer() {
       emit('updated')
       flashMessage.show({
         type: 'success',
-        title: 'Votre recette a bien été créée !'
+        title: 'Votre recette a bien été modifiée !'
       })
     } else {
       flashMessage.show({
@@ -49,56 +83,30 @@ function envoyer() {
   })
 }
 
-let titre = ref('')
-let description = ref('')
-let difficulty = ref('')
-let preparationTime = ref('')
-let nbPersons = ref('')
-let preparation = ref('')
-let categories = ref('')
-let ingredientName = ref('')
-let quantity = ref('')
-let unit = ref('')
+// onMounted(() => {
+//   getRecipe()
+// })
 </script>
 <template>
-  <p class="header">Créer une recette</p>
+  <p class="header">Modifier la recette</p>
   <div class="wrapper">
     <form class="form" @submit.prevent="envoyer">
       <p>Titre</p>
-      <input v-model="titre" />
+      <input v-model="inscriptionRecipe.title" />
 
       <p>Description</p>
-      <input v-model="description" />
+      <input v-model="inscriptionRecipe.description" />
 
       <div>Détails de la recette</div>
 
-      <p>difficulté</p>
-      <input type="number" min="1" v-model="difficulty" />
-
-      <p>Temps de préparation</p>
-      <input type="number" min="0" v-model="preparationTime" /><span> minutes</span>
-
-      <p>Nombre de personnes</p>
-      <input type="number" min="0" v-model="nbPersons" />
-
       <p>Préparation</p>
-      <input v-model="preparation" />
+      <input v-model="inscriptionRecipe.preparation" />
 
       <p>Catégories</p>
-      <input v-model="categories" />
+      <input v-model="inscriptionRecipe.categoryNames" />
 
       <div>Composition</div>
-
-      <p>Ingrédient</p>
-      <input v-model="ingredientName" />
-
-      <p>Quantité</p>
-      <input type="number" min="0" v-model="quantity" />
-
-      <p>Unité</p>
-      <input v-model="unit" />
-      <p></p>
-      <button type="submit">Envoyer</button>
+      <button type="submit">Modifier</button>
     </form>
   </div>
 </template>
@@ -136,7 +144,7 @@ button {
   width: 20%;
   margin: 10px auto;
   border-radius: 2px;
-  background-color: rgb(75, 81, 85);
+  background-color: rgb(30, 255, 142);
   font-size: 20px;
   border: none;
   padding: 5px;

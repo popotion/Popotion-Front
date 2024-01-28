@@ -4,10 +4,12 @@ import AllRecipes from '@/views/AllRecipes.vue'
 import AllCategories from '@/views/AllCategories.vue'
 import SingleRecipe from '@/views/SingleRecipe.vue'
 import SingleUser from '@/views/singleUser.vue'
-import FormulaireRecipeVue from '@/views/FormulaireRecipe.vue'
+import FormulaireRecipe from '@/views/FormulaireRecipe.vue'
 import Login from '@/views/Login.vue'
 import Inscription from '@/views/Inscription.vue'
 import AdminPanel from '@/views/AdminPanel.vue'
+import FormulairePatchRecipe from '@/views/FormulairePatchRecipe.vue'
+import FormulairePatchUser from '@/views/FormulairePatchUser.vue'
 
 
 const router = createRouter({
@@ -50,7 +52,17 @@ const router = createRouter({
         {
             path: '/formulaireRecipe',
             name: 'formulaireRecipe',
-            component: FormulaireRecipeVue
+            component: FormulaireRecipe
+        },
+        {
+            path: '/formulaireUpdateRecipe/:id',
+            name: 'formulaireUpdateRecipe',
+            component: FormulairePatchRecipe
+        },
+        {
+            path: '/formulaireUpdateUser/:id',
+            name: 'formulaireUpdateUser',
+            component: FormulairePatchUser
         },
         {
             path: '/inscription',
