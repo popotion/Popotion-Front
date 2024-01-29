@@ -3,24 +3,19 @@ import { storeAuthentification } from '@/store/storeAuthentification.ts'
 import { ref, onMounted } from 'vue'
 import { flashMessage } from '@smartweb/vue-flash-message'
 import router from '@/router'
+import { useRouter, useRoute } from 'vue-router'
 
-const emit = defineEmits<{ updated: [] }>()
-let titre = ref('')
-let description = ref('')
-let preparation = ref('')
-let categories = ref('')
-let ingredientName = ref('')
-let quantity = ref('')
-let unit = ref('')
-
-const id = router.currentRoute.value.params.id
-
-const inscriptionRecipe = ref({
+const recipeToUpdate = ref({
   title: '',
   description: '',
-  preparation: [],
-  categoryNames: [],
-  ingredients: [
+  preparation: [''],
+  recipeDetails: {
+    difficulty: 0,
+    preparationTime: 0,
+    nbPersons: 0
+  },
+  categoryNames: [''],
+  compositionData: [
     {
       ingredientName: '',
       quantity: 0,
@@ -29,83 +24,156 @@ const inscriptionRecipe = ref({
   ],
   imageName: ''
 })
+const recipeId = router.currentRoute.value.params.id
+const emit = defineEmits<{ updated: [] }>()
 
-// function getRecipe(): void {
-//   fetch('http://127.0.0.1:8000/api/recipes/' + id, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/ld+json'
-//     }
-//   }).then((response) => {
-//     response.json().then((data) => {
-//       inscriptionRecipe.value = data
-//       console.log(inscriptionRecipe.value)
-//     })
-//   })
-// }
+onMounted(async () => {
+  const response = await fetch(`http://127.0.0.1:8000/api/recipes/${recipeId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/ld+json',
+      Authorization: `Bearer ${storeAuthentification.JWT}`
+    }
+  })
+  const data = await response.json()
+  console.log(JSON.stringify(data))
+  transformDataForPatch(data)
+})
 
-function envoyer() {
-  const body = {
-    title: titre.value,
-    description: description.value,
-    preparation: [preparation.value],
-    categoryNames: [categories.value],
-    compositionsData: [
-      {
-        ingredientName: ingredientName.value,
-        quantity: quantity.value,
-        unit: unit.value
-      }
-    ],
-    imageName: ''
+function addPreparationStep() {
+  recipeToUpdate.value.preparation.push('')
+}
+
+function removePreparationStep(index: number) {
+  recipeToUpdate.value.preparation.splice(index, 1)
+}
+
+function addCategory() {
+  if (recipeToUpdate.value.categoryNames.length < 3) {
+    recipeToUpdate.value.categoryNames.push('')
   }
+}
 
-  fetch('http://127.0.0.1:8000/api/recipes/' + id, {
+function removeCategory(index: number) {
+  recipeToUpdate.value.categoryNames.splice(index, 1)
+}
+
+function addComposition() {
+  recipeToUpdate.value.compositionsData.push({
+    ingredientName: '',
+    quantity: 0,
+    unit: ''
+  })
+}
+
+function removeComposition(index: number) {
+  recipeToUpdate.value.compositionsData.splice(index, 1)
+}
+
+function transformDataForPatch(data: any) {
+  const categoryNames = data.categories.map((category) => category.name)
+  const compositionsData = data.ingredients.map((ingredient) => ({
+    ingredientName: ingredient.ingredientName,
+    quantity: ingredient.quantity,
+    unit: ingredient.unit
+  }))
+  const difficulty = parseInt(data.details[0].split(':')[1].trim().split('/')[0])
+  const preparationTime = parseInt(data.details[1].split(':')[1].trim().replace('min', ''))
+  const nbPersons = parseInt(data.details[2].split(':')[1].trim().split(' ')[0])
+  recipeToUpdate.value = {
+    title: data.title,
+    description: data.description,
+    recipeDetails: {
+      difficulty,
+      preparationTime,
+      nbPersons
+    },
+    preparation: data.preparation,
+    categoryNames,
+    compositionsData,
+    imageName: data.imageName
+  }
+}
+
+async function envoyer() {
+  console.log(JSON.stringify(recipeToUpdate.value))
+  const response = await fetch(`http://127.0.0.1:8000/api/recipes/${recipeId}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/merge-patch+json',
       Authorization: `Bearer ${storeAuthentification.JWT}`
     },
-    body: JSON.stringify(body)
-  }).then((response) => {
-    if (response.status == 201 || response.status == 200) {
-      emit('updated')
-      flashMessage.show({
-        type: 'success',
-        title: 'Votre recette a bien été modifiée !'
-      })
-    } else {
-      flashMessage.show({
-        type: 'error',
-        title: 'Champs invalides ou manquants !'
-      })
-    }
+    body: JSON.stringify(recipeToUpdate.value)
   })
-}
 
-// onMounted(() => {
-//   getRecipe()
-// })
+  if (response.status === 204 || response.status === 200) {
+    emit('updated')
+    flashMessage.show({
+      type: 'success',
+      title: 'Recette modifiée'
+    })
+  } else {
+    flashMessage.show({
+      type: 'error',
+      title: 'Erreur lors de la modification de la recette'
+    })
+  }
+}
 </script>
 <template>
   <p class="header">Modifier la recette</p>
   <div class="wrapper">
     <form class="form" @submit.prevent="envoyer">
       <p>Titre</p>
-      <input v-model="inscriptionRecipe.title" />
+      <input type="text" v-model="recipeToUpdate.title" />
 
       <p>Description</p>
-      <input v-model="inscriptionRecipe.description" />
+      <input type="text" v-model="recipeToUpdate.description" />
 
-      <div>Détails de la recette</div>
+      <div>
+        <p>Détails de la recette</p>
+        <p>Difficulté</p>
+        <input type="number" min="0" max="5" v-model="recipeToUpdate.recipeDetails.difficulty" />
+        <p>Temps de préparation</p>
+        <input
+          type="number"
+          min="0"
+          max="180"
+          v-model="recipeToUpdate.recipeDetails.preparationTime"
+        />
+        <p>Nombre de personnes</p>
+        <input type="number" min="0" max="10" v-model="recipeToUpdate.recipeDetails.nbPersons" />
+      </div>
 
-      <p>Préparation</p>
-      <input v-model="inscriptionRecipe.preparation" />
+      <div>
+        <p>Préparation</p>
+        <div v-for="(step, index) in recipeToUpdate.preparation" :key="index">
+          <input type="text" v-model="recipeToUpdate.preparation[index]" />
+          <button type="button" @click="removePreparationStep(index)">Supprimer</button>
+        </div>
+        <button type="button" @click="addPreparationStep">Ajouter une étape</button>
+      </div>
 
-      <p>Catégories</p>
-      <input v-model="inscriptionRecipe.categoryNames" />
+      <div>
+        <p>Catégories</p>
+        <div v-for="(category, index) in recipeToUpdate.categoryNames" :key="index">
+          <input type="text" v-model="recipeToUpdate.categoryNames[index]" />
+          <button type="button" @click="removeCategory(index)">Supprimer</button>
+        </div>
+        <button type="button" @click="addCategory">Ajouter une catégorie</button>
+      </div>
 
-      <div>Composition</div>
+      <div>
+        <p>Composition</p>
+        <div v-for="(composition, index) in recipeToUpdate.compositionsData" :key="index">
+          <input type="text" v-model="composition.ingredientName" />
+          <input type="number" v-model="composition.quantity" />
+          <input type="text" v-model="composition.unit" />
+          <button type="button" @click="removeComposition(index)">Supprimer</button>
+        </div>
+        <button type="button" @click="addComposition">Ajouter une composition</button>
+      </div>
+
       <button type="submit">Modifier</button>
     </form>
   </div>
