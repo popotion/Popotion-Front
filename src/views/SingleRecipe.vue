@@ -3,6 +3,7 @@ import type { Recipe } from '@/types'
 import { useRouter } from 'vue-router'
 import { ref, type Ref, onMounted } from 'vue'
 import BoiteRecipeDetails from '@/components/BoiteRecipeDetails.vue'
+import { storeAuthentification } from '@/store/storeAuthentification'
 
 const router = useRouter()
 const id = router.currentRoute.value.params.id

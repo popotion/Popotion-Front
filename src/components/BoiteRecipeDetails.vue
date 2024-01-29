@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter, RouterLink } from 'vue-router'
 import type { Recipe } from '@/types'
+import { onMounted } from 'vue'
 import { storeAuthentification } from '@/store/storeAuthentification'
 import { flashMessage } from '@smartweb/vue-flash-message'
 
@@ -75,10 +76,42 @@ function deleteRecipe() {
         ✖
       </button>
     </div>
+    <div><h1>Commentaires</h1></div>
+    <div class="comments" v-for="comment in recipe.comments" :key="comment.id">
+      <h2 class="comment-auth">{{ comment.author.login }}</h2>
+      {{ comment.message }}
+    </div>
+    <router-link :to="{ name: 'comment', params: { id: recipe.id } }">
+      <button class="btn-add">Ajouter un commentaire</button>
+    </router-link>
   </div>
 </template>
 
 <style scoped>
+h1 {
+  margin-top: 30px;
+}
+
+.btn-add {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: rgb(87, 87, 87);
+  color: white;
+  font-size: 15px;
+  border: none;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.comments {
+  padding: 15px;
+  margin-top: 20px;
+  width: 50%;
+  border-radius: 20px;
+  border: solid 1px black;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
 .btn-container {
   display: flex;
   margin-top: 20px;
