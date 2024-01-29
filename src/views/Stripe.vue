@@ -2,7 +2,9 @@
 import { ref } from 'vue'
 import { storeAuthentification } from '@/store/storeAuthentification'
 
-const link = ref('')
+const link = ref({
+  checkoutUrl: ''
+})
 
 async function stripe() {
   const response = await fetch('http://api.iut.romainmillan.fr/api/premium/subscribe', {
