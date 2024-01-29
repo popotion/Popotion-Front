@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { storeAuthentification } from '@/store/storeAuthentification.ts'
+import { storeAuthentification } from '@/store/storeAuthentification'
 import { ref } from 'vue'
 import { flashMessage } from '@smartweb/vue-flash-message'
 
