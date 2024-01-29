@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useRouter, RouterLink } from 'vue-router'
 import type { Recipe } from '@/types'
-import { onMounted } from 'vue'
 import { storeAuthentification } from '@/store/storeAuthentification'
 import { flashMessage } from '@smartweb/vue-flash-message'
 

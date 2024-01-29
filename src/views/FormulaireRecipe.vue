@@ -67,6 +67,9 @@ let unit = ref('')
       <p>Titre</p>
       <input v-model="titre" />
 
+      <p>Images</p>
+      <input type="file" id="imageFile" ref="imageInput" accept="image/*" class="input-field" />
+
       <p>Description</p>
       <input v-model="description" />
 
