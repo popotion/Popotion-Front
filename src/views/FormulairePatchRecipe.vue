@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { storeAuthentification } from '@/store/storeAuthentification.ts'
+import { storeAuthentification } from '@/store/storeAuthentification'
 import { ref, onMounted } from 'vue'
 import { flashMessage } from '@smartweb/vue-flash-message'
 import router from '@/router'
-import { useRouter, useRoute } from 'vue-router'
 
 const recipeToUpdate = ref({
   title: '',
@@ -59,7 +58,7 @@ function removeCategory(index: number) {
 }
 
 function addComposition() {
-  recipeToUpdate.value.compositionsData.push({
+  recipeToUpdate.value.compositionData.push({
     ingredientName: '',
     quantity: 0,
     unit: ''
@@ -67,16 +66,18 @@ function addComposition() {
 }
 
 function removeComposition(index: number) {
-  recipeToUpdate.value.compositionsData.splice(index, 1)
+  recipeToUpdate.value.compositionData.splice(index, 1)
 }
 
 function transformDataForPatch(data: any) {
-  const categoryNames = data.categories.map((category) => category.name)
-  const compositionsData = data.ingredients.map((ingredient) => ({
-    ingredientName: ingredient.ingredientName,
-    quantity: ingredient.quantity,
-    unit: ingredient.unit
-  }))
+  const categoryNames = data.categories.map((category: { name: any }) => category.name)
+  const compositionsData = data.ingredients.map(
+    (ingredient: { ingredientName: any; quantity: any; unit: any }) => ({
+      ingredientName: ingredient.ingredientName,
+      quantity: ingredient.quantity,
+      unit: ingredient.unit
+    })
+  )
   const difficulty = parseInt(data.details[0].split(':')[1].trim().split('/')[0])
   const preparationTime = parseInt(data.details[1].split(':')[1].trim().replace('min', ''))
   const nbPersons = parseInt(data.details[2].split(':')[1].trim().split(' ')[0])
@@ -165,7 +166,7 @@ async function envoyer() {
 
       <div>
         <p>Composition</p>
-        <div v-for="(composition, index) in recipeToUpdate.compositionsData" :key="index">
+        <div v-for="(composition, index) in recipeToUpdate.compositionData" :key="index">
           <input type="text" v-model="composition.ingredientName" />
           <input type="number" v-model="composition.quantity" />
           <input type="text" v-model="composition.unit" />
