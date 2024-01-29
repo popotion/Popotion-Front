@@ -59,7 +59,7 @@ function removeComposition(index: number) {
 }
 
 async function envoyer() {
-  const response = await fetch('http://127.0.0.1:8000/api/recipes', {
+  const response = await fetch('http://api.iut.romainmillan.fr/api/recipes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/ld+json',

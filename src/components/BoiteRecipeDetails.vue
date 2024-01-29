@@ -8,7 +8,7 @@ const router = useRouter()
 const props = defineProps<{ recipe: Recipe }>()
 
 function deleteRecipe() {
-  fetch(`http://127.0.0.1:8000/api/recipes/${props.recipe.id}`, {
+  fetch(`http://api.iut.romainmillan.fr/api/recipes/${props.recipe.id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${storeAuthentification.JWT}`

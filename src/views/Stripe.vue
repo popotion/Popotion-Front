@@ -5,7 +5,7 @@ import { storeAuthentification } from '@/store/storeAuthentification'
 const link = ref('')
 
 async function stripe() {
-  const response = await fetch('http://localhost:8000/api/premium/subscribe', {
+  const response = await fetch('http://api.iut.romainmillan.fr/api/premium/subscribe', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${storeAuthentification.JWT}`

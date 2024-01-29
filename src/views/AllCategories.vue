@@ -6,7 +6,7 @@ import BoiteCategory from '@/components/BoiteCategory.vue'
 const categories: Ref<Category[]> = ref([])
 
 onMounted(() => {
-  fetch('http://127.0.0.1:8000/api/categories')
+  fetch('http://api.iut.romainmillan.fr/api/categories')
     .then((reponsehttp) => reponsehttp.json())
     .then((reponseJSON) => {
       categories.value = reponseJSON['hydra:member']

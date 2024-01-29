@@ -4,7 +4,7 @@ import { storeAuthentification } from '@/store/storeAuthentification'
 const props = defineProps<{ user: User; refresh: () => void }>()
 
 async function deleteUser() {
-  await fetch(`http://127.0.0.1:8000/api/users/${props.user.id}`, {
+  await fetch(`http://api.iut.romainmillan.fr/api/users/${props.user.id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${storeAuthentification.JWT}`
