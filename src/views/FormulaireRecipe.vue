@@ -4,104 +4,139 @@ import { ref } from 'vue'
 import { flashMessage } from '@smartweb/vue-flash-message'
 
 const emit = defineEmits<{ updated: [] }>()
+const newRecipe = ref({
+  title: '',
+  description: '',
+  preparation: [''],
+  recipeDetails: {
+    difficulty: 0,
+    preparationTime: 0,
+    nbPersons: 0
+  },
+  categoryNames: [''],
+  compositionsData: [
+    {
+      ingredientName: '',
+      quantity: 0,
+      unit: ''
+    }
+  ],
+  imageName: ''
+})
 
-function envoyer() {
-  const body = {
-    title: titre.value,
-    description: description.value,
-    recipeDetails: {
-      difficulty: difficulty.value,
-      preparationTime: preparationTime.value,
-      nbPersons: nbPersons.value
-    },
-    preparation: [preparation.value],
-    categoryNames: [categories.value],
-    compositionsData: [
-      {
-        ingredientName: ingredientName.value,
-        quantity: quantity.value,
-        unit: unit.value
-      }
-    ],
-    imageName: ''
+function addPreparationStep() {
+  if (newRecipe.value.preparation.length < 10) {
+    newRecipe.value.preparation.push('')
   }
+}
 
-  fetch('http://127.0.0.1:8000/api/recipes', {
+function removePreparationStep(index: number) {
+  newRecipe.value.preparation.splice(index, 1)
+}
+
+function addCategory() {
+  if (newRecipe.value.categoryNames.length < 3) {
+    newRecipe.value.categoryNames.push('')
+  }
+}
+
+function removeCategory(index: number) {
+  newRecipe.value.categoryNames.splice(index, 1)
+}
+
+function addComposition() {
+  if (newRecipe.value.compositionsData.length < 10) {
+    newRecipe.value.compositionsData.push({
+      ingredientName: '',
+      quantity: 0,
+      unit: ''
+    })
+  }
+}
+
+function removeComposition(index: number) {
+  newRecipe.value.compositionsData.splice(index, 1)
+}
+
+async function envoyer() {
+  const response = await fetch('http://127.0.0.1:8000/api/recipes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/ld+json',
       Authorization: `Bearer ${storeAuthentification.JWT}`
     },
-    body: JSON.stringify(body)
-  }).then((response) => {
-    if (response.status == 201 || response.status == 200) {
-      emit('updated')
-      flashMessage.show({
-        type: 'success',
-        title: 'Votre recette a bien été créée !'
-      })
-    } else {
-      flashMessage.show({
-        type: 'error',
-        title: 'Champs invalides ou manquants !'
-      })
-    }
+    body: JSON.stringify(newRecipe.value)
   })
+  const data = await response.json()
+  if (response.status === 201) {
+    emit('updated')
+    flashMessage.show({
+      type: 'success',
+      title: 'Recette créée'
+    })
+  } else {
+    flashMessage.show({
+      type: 'error',
+      title: 'Erreur lors de la création de la recette'
+    })
+  }
 }
-
-let titre = ref('')
-let description = ref('')
-let difficulty = ref('')
-let preparationTime = ref('')
-let nbPersons = ref('')
-let preparation = ref('')
-let categories = ref('')
-let ingredientName = ref('')
-let quantity = ref('')
-let unit = ref('')
 </script>
 <template>
   <p class="header">Créer une recette</p>
   <div class="wrapper">
     <form class="form" @submit.prevent="envoyer">
       <p>Titre</p>
-      <input v-model="titre" />
+      <input type="text" v-model="newRecipe.title" />
 
       <p>Images</p>
       <input type="file" id="imageFile" ref="imageInput" accept="image/*" class="input-field" />
 
       <p>Description</p>
-      <input v-model="description" />
+      <input type="text" v-model="newRecipe.description" />
 
-      <div>Détails de la recette</div>
+      <div>
+        <p>Détails de la recette</p>
+        <p>Difficulté</p>
+        <input type="number" min="0" max="5" v-model="newRecipe.recipeDetails.difficulty" />
+        <p>Temps de préparation</p>
+        <input type="number" min="0" max="180" v-model="newRecipe.recipeDetails.preparationTime" />
+        <p>Nombre de personnes</p>
+        <input type="number" min="0" max="10" v-model="newRecipe.recipeDetails.nbPersons" />
+      </div>
 
-      <p>difficulté</p>
-      <input type="number" min="1" v-model="difficulty" />
+      <div>
+        <p>Préparation</p>
+        <div v-for="(step, index) in newRecipe.preparation" :key="index">
+          <input type="text" v-model="newRecipe.preparation[index]" />
+          <button type="button" @click="removePreparationStep(index)">Supprimer</button>
+        </div>
+        <button type="button" @click="addPreparationStep">Ajouter une étape</button>
+      </div>
 
-      <p>Temps de préparation</p>
-      <input type="number" min="0" v-model="preparationTime" /><span> minutes</span>
+      <div>
+        <p>Catégories</p>
+        <div v-for="(category, index) in newRecipe.categoryNames" :key="index">
+          <input type="text" v-model="newRecipe.categoryNames[index]" />
+          <button type="button" @click="removeCategory(index)">Supprimer</button>
+        </div>
+        <button type="button" @click="addCategory" v-if="newRecipe.categoryNames.length < 3">
+          Ajouter une catégorie
+        </button>
+      </div>
 
-      <p>Nombre de personnes</p>
-      <input type="number" min="0" v-model="nbPersons" />
+      <div>
+        <p>Composition</p>
+        <div v-for="(composition, index) in newRecipe.compositionsData" :key="index">
+          <input type="text" v-model="composition.ingredientName" />
+          <input type="number" v-model="composition.quantity" />
+          <input type="text" v-model="composition.unit" />
+          <button type="button" @click="removeComposition(index)">Supprimer</button>
+        </div>
+        <button type="button" @click="addComposition">Ajouter une composition</button>
+      </div>
 
-      <p>Préparation</p>
-      <input v-model="preparation" />
-
-      <p>Catégories</p>
-      <input v-model="categories" />
-
-      <div>Composition</div>
-
-      <p>Ingrédient</p>
-      <input v-model="ingredientName" />
-
-      <p>Quantité</p>
-      <input type="number" min="0" v-model="quantity" />
-
-      <p>Unité</p>
-      <input v-model="unit" />
-      <p></p>
-      <button type="submit">Envoyer</button>
+      <button type="submit">Créer</button>
     </form>
   </div>
 </template>
