@@ -10,6 +10,8 @@ import Inscription from '@/views/Inscription.vue'
 import AdminPanel from '@/views/AdminPanel.vue'
 import FormulairePatchRecipe from '@/views/FormulairePatchRecipe.vue'
 import FormulairePatchUser from '@/views/FormulairePatchUser.vue'
+import Stripe from '@/views/Stripe.vue'
+import FormulaireComment from '@/views/FormulaireComment.vue'
 
 
 const router = createRouter({
@@ -78,6 +80,16 @@ const router = createRouter({
             path: '/user/:id',
             name: 'profile',
             component: SingleUser
+        },
+        {
+            path: '/stripe',
+            name: 'stripe',
+            component: Stripe
+        },
+        {
+            path: '/comment/:id',
+            name: 'comment',
+            component: FormulaireComment
         }
     ]
 })

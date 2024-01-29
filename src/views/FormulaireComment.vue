@@ -1,32 +1,19 @@
 <script setup lang="ts">
 import { storeAuthentification } from '@/store/storeAuthentification.ts'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { flashMessage } from '@smartweb/vue-flash-message'
 
 const emit = defineEmits<{ updated: [] }>()
+const router = useRouter()
+const id = router.currentRoute.value.params.id
 
 function envoyer() {
   const body = {
-    title: titre.value,
-    description: description.value,
-    recipeDetails: {
-      difficulty: difficulty.value,
-      preparationTime: preparationTime.value,
-      nbPersons: nbPersons.value
-    },
-    preparation: [preparation.value],
-    categoryNames: [categories.value],
-    compositionsData: [
-      {
-        ingredientName: ingredientName.value,
-        quantity: quantity.value,
-        unit: unit.value
-      }
-    ],
-    imageName: ''
+    message: message.value,
+    recipe: 'api/recipes/' + id
   }
-
-  fetch('http://127.0.0.1:8000/api/recipes', {
+  fetch('http://127.0.0.1:8000/api/comments', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/ld+json',
@@ -38,7 +25,7 @@ function envoyer() {
       emit('updated')
       flashMessage.show({
         type: 'success',
-        title: 'Votre recette a bien été créée !'
+        title: 'Votre commentaire a bien été ajouté !'
       })
     } else {
       flashMessage.show({
@@ -49,63 +36,25 @@ function envoyer() {
   })
 }
 
-let titre = ref('')
-let description = ref('')
-let difficulty = ref('')
-let preparationTime = ref('')
-let nbPersons = ref('')
-let preparation = ref('')
-let categories = ref('')
-let ingredientName = ref('')
-let quantity = ref('')
-let unit = ref('')
+let message = ref('')
 </script>
 <template>
-  <p class="header">Créer une recette</p>
+  <p class="header">Ajouter un commentaire</p>
   <div class="wrapper">
     <form class="form" @submit.prevent="envoyer">
-      <p>Titre</p>
-      <input v-model="titre" />
-
-      <p>Images</p>
-      <input type="file" id="imageFile" ref="imageInput" accept="image/*" class="input-field" />
-
-      <p>Description</p>
-      <input v-model="description" />
-
-      <div>Détails de la recette</div>
-
-      <p>difficulté</p>
-      <input type="number" min="1" v-model="difficulty" />
-
-      <p>Temps de préparation</p>
-      <input type="number" min="0" v-model="preparationTime" /><span> minutes</span>
-
-      <p>Nombre de personnes</p>
-      <input type="number" min="0" v-model="nbPersons" />
-
-      <p>Préparation</p>
-      <input v-model="preparation" />
-
-      <p>Catégories</p>
-      <input v-model="categories" />
-
-      <div>Composition</div>
-
-      <p>Ingrédient</p>
-      <input v-model="ingredientName" />
-
-      <p>Quantité</p>
-      <input type="number" min="0" v-model="quantity" />
-
-      <p>Unité</p>
-      <input v-model="unit" />
-      <p></p>
+      <p>Message</p>
+      <input v-model="message" />
       <button type="submit">Envoyer</button>
     </form>
   </div>
 </template>
 <style scoped>
+.form {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 div.wrapper {
   background-color: rgb(252, 255, 254);
   box-shadow: 0 0 0.3rem #999;

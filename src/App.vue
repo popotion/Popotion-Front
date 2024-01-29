@@ -54,6 +54,9 @@ function isAdmin() {
         >
           Profil
         </div>
+        <div v-if="storeAuthentification.estConnecte" @click="router.push({ name: 'stripe' })">
+          Premium
+        </div>
         <div
           v-if="isAdmin() && storeAuthentification.estConnecte"
           @click="router.push({ name: 'adminPanel' })"
