@@ -31,7 +31,6 @@ onMounted(async () => {
   const response = await fetch(`http://127.0.0.1:8000/api/categories/${categoryId}/recipes`)
   const reponseJSON = await response.json()
   recipes.value = reponseJSON['hydra:member']
-  console.log(recipes.value)
 })
 </script>
 <template>
