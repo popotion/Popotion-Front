@@ -8,7 +8,7 @@ const router = useRouter()
 
 const nbRecipes: Ref<number> = ref(0)
 const ingredientNames: Ref<string[]> = ref(['chargement'])
-const recipes: Ref<Recipe[]> = ref([
+const recipes: Ref<any[]> = ref([
   {
     title: 'chargement',
     description: 'chargement',
@@ -38,7 +38,7 @@ onMounted(async () => {
   nbRecipes.value = recipes.value.length
   recipes.value.forEach((recipe) => {
     if (recipe.ingredients && Array.isArray(recipe.ingredients)) {
-      recipe.ingredients.forEach((ingredient) => {
+      recipe.ingredients.forEach((ingredient: any) => {
         if (!ingredientNames.value.includes(ingredient.ingredientName)) {
           ingredientNames.value.push(ingredient.ingredientName)
         }
