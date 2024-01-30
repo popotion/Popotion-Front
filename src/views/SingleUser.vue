@@ -32,6 +32,7 @@ const user: Ref<User> = ref({
   ],
   comments: [
     {
+      id: 0,
       message: 'string',
       recipe: {
         id: 0,
@@ -106,8 +107,5 @@ onMounted(async () => {
 <template>
   <div>
     <BoiteUser :key="user.id" :user="user" :id="user.id" />
-  </div>
-  <div>
-    <BoiteRecipe v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" :id="recipe.id" />
   </div>
 </template>
