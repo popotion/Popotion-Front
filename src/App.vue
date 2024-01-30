@@ -21,28 +21,45 @@ function isAdmin() {
   }
   return false
 }
+
+function isPremium() {
+  if (storeAuthentification.premium === true) {
+    return true
+  }
+  return false
+}
 </script>
 <template>
   <div id="wrapper">
     <header>
       <FlashMessage />
       <nav>
-        <div @click="router.push({ name: 'home' })">Popotions</div>
-        <div @click="router.push({ name: 'allRecipes' })">Recettes</div>
-        <div @click="router.push({ name: 'allCategories' })">Catégories</div>
+        <div @click="router.push({ name: 'home' })" class="logo-container">
+          <img src="./assets/logo.svg" alt="logo" width="50px" />
+          <p>Popotion</p>
+        </div>
+        <div @click="router.push({ name: 'allRecipes' })" class="nav-item">Recettes</div>
+        <div @click="router.push({ name: 'allCategories' })" class="nav-item">Catégories</div>
         <!-- <div v-if="storeAuthentification.estConnecte">Favoris</div> -->
-        <div v-if="!storeAuthentification.estConnecte" @click="router.push({ name: 'login' })">
+        <div
+          v-if="!storeAuthentification.estConnecte"
+          @click="router.push({ name: 'login' })"
+          class="nav-item"
+        >
           Connexion
         </div>
         <div
           v-if="!storeAuthentification.estConnecte"
           @click="router.push({ name: 'inscription' })"
+          class="nav-item"
         >
           Inscription
         </div>
-        <div v-if="storeAuthentification.estConnecte" @click="disconnect()">Déconnexion</div>
+        <div v-if="storeAuthentification.estConnecte" @click="disconnect()" class="nav-item">
+          Déconnexion
+        </div>
         <div
-          class="post"
+          class="post nav-item"
           v-if="storeAuthentification.estConnecte"
           @click="router.push({ name: 'formulaireRecipe' })"
         >
@@ -51,15 +68,21 @@ function isAdmin() {
         <div
           v-if="storeAuthentification.estConnecte"
           @click="router.push({ name: 'profile', params: { id: storeAuthentification.id } })"
+          class="nav-item"
         >
           Profil
         </div>
-        <div v-if="storeAuthentification.estConnecte" @click="router.push({ name: 'stripe' })">
+        <div
+          v-if="storeAuthentification.estConnecte && !isPremium()"
+          @click="router.push({ name: 'stripe' })"
+          class="nav-item"
+        >
           Premium
         </div>
         <div
           v-if="isAdmin() && storeAuthentification.estConnecte"
           @click="router.push({ name: 'adminPanel' })"
+          class="nav-item"
         >
           <h3>Administration</h3>
         </div>
@@ -74,16 +97,22 @@ function isAdmin() {
 <style scoped>
 .post {
   margin-left: 20px;
-  font-weight: 600;
+  font-weight: 500;
   padding: 5px;
-  background-color: #f5b59a;
+  background-color: var(--dark-orange);
   border-radius: 35px;
+}
+.nav-item {
+  padding: 10px;
+  flex-grow: 1;
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
 }
 #wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
 }
 header {
   width: 100%;
@@ -93,23 +122,21 @@ header {
   background-color: white;
   border-bottom: solid 1px black;
 }
-header h1 {
-  text-align: center;
-  font-family: helvetica, serif;
-  font-weight: 700;
-}
 nav {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
-  margin: 0 auto;
 }
-nav > div:first-child {
-  font-size: 1.5rem;
-  font-weight: 700;
+.logo-container {
+  display: flex;
+  align-items: center;
+  padding-left: 150px;
+  font-weight: 500;
+  font-size: 24px;
 }
-
+.logo-container > img {
+  margin-right: 15px;
+}
 nav > div {
   padding: 10px;
   flex-grow: 1;
