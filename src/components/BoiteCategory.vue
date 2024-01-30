@@ -5,6 +5,10 @@ import BoiteRecipe from '@/components/BoiteRecipe.vue'
 
 const router = useRouter()
 const props = defineProps<{ category: Category }>()
+
+function seeAllRecipesOfCategory(id: number) {
+  router.push({ name: 'recipesOfCategory', params: { id: id.toString() } })
+}
 </script>
 
 <template>
@@ -15,8 +19,11 @@ const props = defineProps<{ category: Category }>()
         <h3>{{ category.description }}</h3>
       </div>
     </div>
-    <div v-for="recipe in category.recipes" :key="recipe.id" class="all-category">
-      <BoiteRecipe :key="recipe.id" :recipe="recipe" :id="recipe.id" />
+    <div @click="seeAllRecipesOfCategory(category.id)">Voir tous</div>
+    <div v-for="(recipe, index) in category.recipes" :key="recipe.id" class="all-category">
+      <div v-if="index < 3">
+        <BoiteRecipe :key="recipe.id" :recipe="recipe" :id="recipe.id" />
+      </div>
     </div>
   </div>
 </template>
