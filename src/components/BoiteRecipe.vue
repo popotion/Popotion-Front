@@ -15,8 +15,12 @@ const props = defineProps<{ recipe: Recipe }>()
       Postée le {{ new Date(props.recipe.datePublication).toLocaleString('fr') }}
     </div>
     <div class="content clickable">
+      <img
+        style="width: 100px; height: 100px; object-fit: cover"
+        :src="'http://127.0.0.1:8000/api/getImage/' + props.recipe.imageName"
+        alt="image"
+      />
       <h2>{{ recipe.title }}</h2>
-      <div>{{ recipe.description }}</div>
     </div>
   </div>
 </template>

@@ -37,13 +37,11 @@ onMounted(async () => {
   recipes.value = reponseJSON['hydra:member']
   nbRecipes.value = recipes.value.length
   recipes.value.forEach((recipe) => {
-    if (recipe.ingredients && Array.isArray(recipe.ingredients)) {
+    if (recipe.ingredients && Array.isArray(recipe.ingredients))
       recipe.ingredients.forEach((ingredient: any) => {
-        if (!ingredientNames.value.includes(ingredient.ingredientName)) {
+        if (!ingredientNames.value.includes(ingredient.ingredientName))
           ingredientNames.value.push(ingredient.ingredientName)
-        }
       })
-    }
   })
   ingredientNames.value.sort()
   filteredRecipes.value = recipes.value
