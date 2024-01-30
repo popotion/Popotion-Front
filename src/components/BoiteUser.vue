@@ -9,7 +9,9 @@ const props = defineProps<{ user: User }>()
 
 <template>
   <div class="contentBox">
-    <h1 class="top">Profil de {{ user.login }}</h1>
+    <h1 class="top">
+      Profil de <span :class="{ 'user-premium': user.premium }">{{ user.login }}</span>
+    </h1>
     <div>
       <img
         id="imgProfile"
@@ -89,5 +91,8 @@ h2 {
 .comment-message {
   margin-top: 10px;
   font-size: 14px;
+}
+.user-premium {
+  color: var(--premium-user-color);
 }
 </style>

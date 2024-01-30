@@ -48,7 +48,11 @@ function deleteRecipe() {
       {{ category.name }}
     </div>
     <div class="description mt">
-      <h3>Note de l'autheur</h3>
+      <h3>Auteur:</h3>
+      <router-link :to="{ name: 'singleUser', params: { id: recipe.author.id } }">
+        <p :class="{ 'user-premium': recipe.author.premium }">{{ recipe.author.login }}</p>
+      </router-link>
+      <h3>Note de l'auteur</h3>
       <div>{{ recipe.description }}</div>
     </div>
     <div class="ingredients mt">
@@ -61,10 +65,10 @@ function deleteRecipe() {
     </div>
     <div class="details mt">
       <h3>Détails</h3>
-      <div class="elements">Difficulté : {{ recipe.details[0] }}</div>
-      <div class="elements">Temps de préparation : {{ recipe.details[1] }}</div>
-      <div class="elements">Nombre de personnes : {{ recipe.details[2] }}</div>
-      <div class="preparation">Préparation</div>
+      <div class="elements">{{ recipe.details[0] }}</div>
+      <div class="elements">{{ recipe.details[1] }}</div>
+      <div class="elements">{{ recipe.details[2] }}</div>
+      <h3 class="preparation">Préparation</h3>
       <div v-for="p in recipe.preparation" :key="p">- {{ p }}</div>
     </div>
     <div class="btn-container">
@@ -106,6 +110,9 @@ img {
 }
 h1 {
   margin-top: 30px;
+}
+.user-premium {
+  color: var(--premium-user-color);
 }
 
 .btn-add {
