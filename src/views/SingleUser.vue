@@ -3,7 +3,6 @@ import type { User, Recipe } from '@/types'
 import { useRouter } from 'vue-router'
 import { ref, type Ref, onMounted } from 'vue'
 import BoiteUser from '@/components/BoiteUser.vue'
-import BoiteRecipe from '@/components/BoiteRecipe.vue'
 
 const router = useRouter()
 const id = router.currentRoute.value.params.id
@@ -12,7 +11,7 @@ const user: Ref<User> = ref({
   id: 0,
   login: 'string',
   status: 'string',
-  adresseEmail: 'string',
+  mailAdress: 'string',
   premium: true,
   roles: ['string'],
   recipes: [

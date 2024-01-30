@@ -13,7 +13,7 @@ const props = defineProps<{ user: User }>()
     <div>
       <img
         id="imgProfile"
-        :src="'http://myavatar.iut.romainmillan.fr/fr/avatar/' + md5(user.adresseEmail)"
+        :src="'http://myavatar.iut.romainmillan.fr/fr/avatar/' + md5(user.mailAdress)"
         alt="photo de profil"
       />
     </div>
