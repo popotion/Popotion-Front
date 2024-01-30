@@ -25,7 +25,7 @@ const recipes: Ref<Recipe[]> = ref([
 ])
 
 onMounted(() => {
-  fetch('http://api.iut.romainmillan.fr/api/recipes')
+  fetch('http://127.0.0.1:8000/api/recipes')
     .then((reponsehttp) => reponsehttp.json())
     .then((reponseJSON) => {
       recipes.value = reponseJSON['hydra:member']

@@ -13,5 +13,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  base: '/~votre_login/TD_vueJS/todo_list'
+  base: './'
 })

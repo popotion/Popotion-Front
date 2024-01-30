@@ -8,7 +8,7 @@ const router = useRouter()
 const props = defineProps<{ recipe: Recipe }>()
 
 function deleteRecipe() {
-  fetch(`http://api.iut.romainmillan.fr/api/recipes/${props.recipe.id}`, {
+  fetch(`http://127.0.0.1:8000/api/recipes/${props.recipe.id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${storeAuthentification.JWT}`
@@ -34,6 +34,10 @@ function deleteRecipe() {
 <template>
   <div class="container mt">
     <div class="title">{{ recipe.title }}</div>
+    <div>
+      Image
+      <img :src="'http://127.0.0.1:8000/api/getImage/' + props.recipe.imageName" alt="image" />
+    </div>
     <div
       class="categories mt"
       v-for="category in recipe.categories"

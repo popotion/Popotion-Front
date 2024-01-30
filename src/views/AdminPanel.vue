@@ -6,7 +6,7 @@ import BoiteUserAdmin from '@/components/BoiteUserAdmin.vue'
 const users: Ref<User[]> = ref([])
 
 function getAllUsers() {
-  return fetch('http://api.iut.romainmillan.fr/api/users')
+  return fetch('http://127.0.0.1:8000/api/users')
     .then((reponsehttp) => reponsehttp.json())
     .then((reponseJSON) => {
       return reponseJSON['hydra:member'] as User[]

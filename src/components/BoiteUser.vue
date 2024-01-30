@@ -12,14 +12,14 @@ const props = defineProps<{ user: User }>()
     <div>
       <img
         id="imgProfile"
-        :src="'http://myavatar.iut.romainmillan.fr/fr/avatar/' + md5(user.mailAdress)"
+        :src="'http://myavatar.iut.romainmillan.fr/fr/avatar/' + md5(user.adresseEmail)"
         alt="photo de profil"
       />
     </div>
     <div class="content">
       <div class="group">
         <h2>Adresse e-mail</h2>
-        <div>{{ user.mailAdress }}</div>
+        <div>{{ user.adresseEmail }}</div>
       </div>
       <div class="group">
         <h1>Liste des Recettes</h1>

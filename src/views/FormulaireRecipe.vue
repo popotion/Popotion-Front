@@ -59,7 +59,35 @@ function removeComposition(index: number) {
 }
 
 async function envoyer() {
-  const response = await fetch('http://api.iut.romainmillan.fr/api/recipes', {
+  var urlApi = 'http://127.0.0.1:8000/api/image/'
+  var inputElement = document.getElementById('imageFile') as HTMLInputElement
+  // Vérification qu'un fichier a été sélectionné
+  if (inputElement?.files?.length === 0) {
+    console.error('Aucun fichier sélectionné.')
+    return
+  }
+  if (!inputElement.files) {
+    console.error('Aucun fichier sélectionné.')
+    return
+  }
+  var fichier = inputElement.files[0] // Récupération du fichier depuis l'input file
+  var nomImage = fichier.name // Récupération du nom du fichier
+  // Création d'un objet FormData pour envoyer le fichier
+  var formData = new FormData()
+  formData.append('image', fichier, nomImage)
+  // Utilisation de l'API Fetch pour envoyer la requête
+  let response = await fetch(urlApi + nomImage, {
+    method: 'POST',
+    body: formData
+  })
+  if (response.ok) {
+    console.log("L'image a été envoyée avec succès à l'URL : ", urlApi + nomImage)
+  } else {
+    console.error("Erreur lors de l'envoi de l'image. Code de statut :", response.status)
+  }
+
+  newRecipe.value.imageName = nomImage
+  response = await fetch('http://127.0.0.1:8000/api/recipes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/ld+json',

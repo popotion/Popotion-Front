@@ -17,14 +17,15 @@ export interface Recipe{
     description: string;
     preparation: Array<string>;
     datePublication: string;
-    details: Array<Object>;
-    ingredients: Array<Object>;
+    details: Array<any>;
+    ingredients: Array<any>;
     difficulty: number;
     nbPersons: number;
-    compositions: Array<Object>; 
-    categories: Array<Object>;
-    comments: Array<Object>;
-    favorites: Array<Object>;
+    compositions: Array<any>; 
+    categories: Array<any>;
+    comments: Array<any>;
+    favorites: Array<any>;
+    imageName: string;
 }
 
 export interface Category{

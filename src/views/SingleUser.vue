@@ -89,13 +89,13 @@ const recipes: Ref<Recipe[]> = ref({
 })
 
 onMounted(async () => {
-  await fetch(encodeURI(String('http://api.iut.romainmillan.fr/api/users/' + id)))
+  await fetch(encodeURI(String('http://127.0.0.1:8000/api/users/' + id)))
     .then((reponsehttp) => reponsehttp.json())
     .then((reponseJSON) => {
       user.value = reponseJSON
     })
 
-  fetch(encodeURI(String('http://api.iut.romainmillan.fr/api/user/' + id + '/recipe')))
+  fetch(encodeURI(String('http://127.0.0.1:8000/api/user/' + id + '/recipe')))
     .then((reponsehttp) => reponsehttp.json())
     .then((reponseJSON) => {
       recipes.value = reponseJSON['hydra:member']

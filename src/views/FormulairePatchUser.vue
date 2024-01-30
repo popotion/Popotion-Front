@@ -8,12 +8,12 @@ const id = router.currentRoute.value.params.id
 const inscriptionUser = ref({
   currentPlainPassword: '',
   plainPassword: '',
-  mailAdress: '',
+  adresseEmail: '',
   status: ''
 })
 
 function getUser(): void {
-  fetch('http://api.iut.romainmillan.fr/api/users/' + id, {
+  fetch('http://127.0.0.1:8000/api/users/' + id, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/ld+json'
@@ -22,14 +22,14 @@ function getUser(): void {
     response.json().then((data) => {
       inscriptionUser.value.currentPlainPassword = data.currentPlainPassword
       inscriptionUser.value.plainPassword = data.plainPassword
-      inscriptionUser.value.mailAdress = data.mailAdress
+      inscriptionUser.value.adresseEmail = data.adresseEmail
       inscriptionUser.value.status = data.status
     })
   })
 }
 
 function update(): void {
-  fetch('http://api.iut.romainmillan.fr/api/users/' + id, {
+  fetch('http://127.0.0.1:8000/api/users/' + id, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/merge-patch+json'
@@ -76,7 +76,7 @@ onMounted(() => {
       </div>
       <div class="group">
         <label>Mail</label>
-        <input v-model="inscriptionUser.mailAdress" />
+        <input v-model="inscriptionUser.adresseEmail" />
         <p></p>
       </div>
       <div class="group">

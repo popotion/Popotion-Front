@@ -6,12 +6,12 @@ import { flashMessage } from '@smartweb/vue-flash-message'
 const inscriptionUser = ref({
   login: '',
   plainPassword: '',
-  mailAdress: '',
+  adresseEmail: '',
   dateOfBirth: ''
 })
 
 function inscription(): void {
-  fetch('http://api.iut.romainmillan.fr/api/users', {
+  fetch('http://127.0.0.1:8000/api/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/ld+json'
@@ -29,7 +29,7 @@ function inscription(): void {
         inscriptionUser.value.login = ''
         inscriptionUser.value.plainPassword = ''
         inscriptionUser.value.dateOfBirth = ''
-        inscriptionUser.value.mailAdress = ''
+        inscriptionUser.value.adresseEmail = ''
         flashMessage.show({
           type: 'error',
           title: 'Identifiant ou mot de passe incorrect'
@@ -58,7 +58,7 @@ function inscription(): void {
       </div>
       <div class="group">
         <label>Mail</label>
-        <input v-model="inscriptionUser.mailAdress" />
+        <input v-model="inscriptionUser.adresseEmail" />
         <p></p>
       </div>
       <div class="group">
