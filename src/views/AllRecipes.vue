@@ -55,7 +55,7 @@ function filterRecipes() {
   } else {
     filteredRecipes.value = recipes.value.filter((recipe) =>
       recipe.ingredients.some(
-        (ingredient) => ingredient.ingredientName === selectedIngredient.value
+        (ingredient: any) => ingredient.ingredientName === selectedIngredient.value
       )
     )
   }
