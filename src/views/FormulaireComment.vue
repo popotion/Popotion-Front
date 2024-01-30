@@ -28,10 +28,17 @@ function envoyer() {
         title: 'Votre commentaire a bien été ajouté !'
       })
     } else {
-      flashMessage.show({
-        type: 'error',
-        title: 'Champs invalides ou manquants !'
-      })
+      if (response.status == 401) {
+        flashMessage.show({
+          type: 'error',
+          title: 'Vous devez être connecté pour ajouter un commentaire !'
+        })
+      } else {
+        flashMessage.show({
+          type: 'error',
+          title: 'Champs invalides ou manquants !'
+        })
+      }
     }
   })
 }

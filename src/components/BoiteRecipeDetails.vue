@@ -34,8 +34,8 @@ function deleteRecipe() {
 <template>
   <div class="container mt">
     <div class="title">{{ recipe.title }}</div>
-    <div>
-      Image
+    <div class="img-container">
+      <span class="imageName">Image</span>
       <img :src="'http://127.0.0.1:8000/api/getImage/' + props.recipe.imageName" alt="image" />
     </div>
     <div
@@ -91,6 +91,19 @@ function deleteRecipe() {
 </template>
 
 <style scoped>
+.imageName {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.img-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+img {
+  width: 500px;
+}
 h1 {
   margin-top: 30px;
 }
