@@ -35,9 +35,13 @@ function removePreparationStep(index: number) {
 }
 
 function addCategory() {
-  if (newRecipe.value.categoryNames.length < 3) {
-    newRecipe.value.categoryNames.push('')
-  }
+  if (storeAuthentification.premium)
+    if (newRecipe.value.categoryNames.length < 3) newRecipe.value.categoryNames.push('')
+    else
+      flashMessage.show({
+        type: 'error',
+        title: 'Vous devez être premium pour ajouter plus de 3 catégories'
+      })
 }
 
 function removeCategory(index: number) {
