@@ -35,7 +35,6 @@ onMounted(async () => {
     }
   })
   const data = await response.json()
-  console.log(JSON.stringify(data))
   transformDataForPatch(data)
 })
 
@@ -48,8 +47,20 @@ function removePreparationStep(index: number) {
 }
 
 function addCategory() {
-  if (recipeToUpdate.value.categoryNames.length < 3) {
-    recipeToUpdate.value.categoryNames.push('')
+  if (storeAuthentification.premium) {
+    if (recipeToUpdate.value.categoryNames.length < 3) recipeToUpdate.value.categoryNames.push('')
+    else
+      flashMessage.show({
+        type: 'error',
+        title: 'Vous pouvez ajouter au maximum 3 catégories'
+      })
+  } else {
+    if (recipeToUpdate.value.categoryNames.length < 1) recipeToUpdate.value.categoryNames.push('')
+    else
+      flashMessage.show({
+        type: 'error',
+        title: 'Vous devez être premium pour ajouter plus de 1 catégorie'
+      })
   }
 }
 
@@ -91,13 +102,12 @@ function transformDataForPatch(data: any) {
     },
     preparation: data.preparation,
     categoryNames,
-    compositionsData,
+    compositionData: compositionsData,
     imageName: data.imageName
   }
 }
 
 async function envoyer() {
-  console.log(JSON.stringify(recipeToUpdate.value))
   const response = await fetch(`http://127.0.0.1:8000/api/recipes/${recipeId}`, {
     method: 'PATCH',
     headers: {
