@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Recipe } from '@/types'
 import { useRouter } from 'vue-router'
 import { ref, type Ref, onMounted } from 'vue'
 import BoiteRecipeDetails from '@/components/BoiteRecipeDetails.vue'
@@ -8,7 +7,7 @@ import { storeAuthentification } from '@/store/storeAuthentification'
 
 const router = useRouter()
 const id = router.currentRoute.value.params.id
-const recipe: Ref<Recipe> = ref({
+const recipe: Ref<any> = ref({
   title: 'chargement',
   description: 'chargement',
   details: ['chargement', 'chargement', 'chargement'],

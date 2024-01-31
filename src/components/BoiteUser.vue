@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import type { User } from '@/types'
 import md5 from 'crypto-js/md5'
 import { defineProps } from 'vue'
 import BoiteRecipe from '@/components/BoiteRecipe.vue'
 
-const props = defineProps<{ user: User }>()
+const props = defineProps<{ user: any }>()
 </script>
 
 <template>
