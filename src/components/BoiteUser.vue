@@ -48,6 +48,17 @@ const props = defineProps<{ user: User }>()
             <div class="comment-message">{{ comment.message }}</div>
           </div>
         </div>
+        <div class="favorites">
+          <h2>Aimées par {{ user.login }}</h2>
+          <div class="recipes-container">
+            <BoiteRecipe
+              v-for="favorite in user.favorites"
+              :key="favorite.recipe.id"
+              :recipe="favorite.recipe"
+              :id="favorite.recipe.id"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -94,5 +105,9 @@ h2 {
 }
 .user-premium {
   color: var(--premium-user-color);
+}
+.favorites {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 </style>

@@ -3,9 +3,16 @@ import { useRouter, RouterLink } from 'vue-router'
 import type { Recipe } from '@/types'
 import { storeAuthentification } from '@/store/storeAuthentification'
 import { flashMessage } from '@smartweb/vue-flash-message'
+import { onMounted, ref } from 'vue'
 
 const router = useRouter()
 const props = defineProps<{ recipe: Recipe }>()
+
+const isRecipeFavorite = ref(false)
+
+const checkIfFavorite = async () => {
+  isRecipeFavorite.value = await isFavorite()
+}
 
 function deleteRecipe() {
   fetch(`http://127.0.0.1:8000/api/recipes/${props.recipe.id}`, {
@@ -29,11 +36,106 @@ function deleteRecipe() {
     }
   })
 }
+
+const isFavorite = async () => {
+  const response = await fetch(`http://127.0.0.1:8000/api/users/${storeAuthentification.id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${storeAuthentification.JWT}`
+    }
+  })
+  const data = await response.json()
+  const favorites = data.favorites
+  for (let i = 0; i < favorites.length; i++)
+    if (favorites[i].recipe.id === props.recipe.id) return true
+  return false
+}
+
+const addToFavorites = async () => {
+  const response = await fetch(`http://127.0.0.1:8000/api/favorites`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/ld+json',
+      Authorization: `Bearer ${storeAuthentification.JWT}`
+    },
+    body: JSON.stringify({
+      recipe: `/api/recipes/${props.recipe.id}`
+    })
+  })
+  if (response.status === 201) {
+    flashMessage.show({
+      type: 'success',
+      title: 'Recette ajoutée aux favoris'
+    })
+  } else {
+    flashMessage.show({
+      type: 'error',
+      title: "Erreur lors de l'ajout de la recette aux favoris"
+    })
+  }
+  await checkIfFavorite()
+}
+
+const removeFromFavorites = async () => {
+  const favoriteId = await getFavoriteId()
+  if (favoriteId === -1) {
+    flashMessage.show({
+      type: 'error',
+      title: 'Erreur lors du retrait de la recette des favoris'
+    })
+    return
+  }
+  const response = await fetch(`http://127.0.0.1:8000/api/favorites/${favoriteId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${storeAuthentification.JWT}`
+    }
+  })
+  if (response.status === 204) {
+    flashMessage.show({
+      type: 'success',
+      title: 'Recette retirée des favoris'
+    })
+  } else {
+    flashMessage.show({
+      type: 'error',
+      title: 'Erreur lors du retrait de la recette des favoris'
+    })
+  }
+  await checkIfFavorite()
+}
+
+const getFavoriteId = async () => {
+  const response = await fetch(`http://127.0.0.1:8000/api/users/${storeAuthentification.id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${storeAuthentification.JWT}`
+    }
+  })
+  const data = await response.json()
+  const favorites = data.favorites
+  for (let i = 0; i < favorites.length; i++)
+    if (favorites[i].recipe.id === props.recipe.id) return favorites[i].id
+  return -1
+}
+
+onMounted(async () => {
+  await checkIfFavorite()
+})
 </script>
 
 <template>
   <div class="container mt">
     <div class="title">{{ recipe.title }}</div>
+    <div
+      v-if="storeAuthentification.estConnecte && isRecipeFavorite"
+      @click="removeFromFavorites()"
+    >
+      Retirer des favoris 💔
+    </div>
+    <div v-if="storeAuthentification.estConnecte && !isRecipeFavorite" @click="addToFavorites()">
+      Ajouter aux favoris ❤️
+    </div>
     <div class="img-container">
       <span class="imageName">Image</span>
       <img :src="'http://127.0.0.1:8000/api/getImage/' + props.recipe.imageName" alt="image" />
