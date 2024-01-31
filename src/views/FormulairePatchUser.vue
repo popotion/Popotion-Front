@@ -8,7 +8,7 @@ const id = router.currentRoute.value.params.id
 const inscriptionUser = ref({
   currentPlainPassword: '',
   plainPassword: '',
-  adresseEmail: '',
+  mailAdress: '',
   status: ''
 })
 
@@ -22,7 +22,7 @@ function getUser(): void {
     response.json().then((data) => {
       inscriptionUser.value.currentPlainPassword = data.currentPlainPassword
       inscriptionUser.value.plainPassword = data.plainPassword
-      inscriptionUser.value.adresseEmail = data.adresseEmail
+      inscriptionUser.value.mailAdress = data.mailAdress
       inscriptionUser.value.status = data.status
     })
   })
@@ -76,7 +76,7 @@ onMounted(() => {
       </div>
       <div class="group">
         <label>Mail</label>
-        <input v-model="inscriptionUser.adresseEmail" />
+        <input v-model="inscriptionUser.mailAdress" />
         <p></p>
       </div>
       <div class="group">

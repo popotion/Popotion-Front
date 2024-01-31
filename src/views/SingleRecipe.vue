@@ -3,6 +3,7 @@ import type { Recipe } from '@/types'
 import { useRouter } from 'vue-router'
 import { ref, type Ref, onMounted } from 'vue'
 import BoiteRecipeDetails from '@/components/BoiteRecipeDetails.vue'
+import { flashMessage } from '@smartweb/vue-flash-message'
 import { storeAuthentification } from '@/store/storeAuthentification'
 
 const router = useRouter()
@@ -37,11 +38,29 @@ const recipe: Ref<Recipe> = ref({
   ]
 })
 onMounted(() => {
-  fetch(encodeURI(String('http://127.0.0.1:8000/api/recipes/' + id)))
-    .then((reponsehttp) => reponsehttp.json())
-    .then((reponseJSON) => {
-      recipe.value = reponseJSON
-    })
+  fetch(encodeURI(String('http://127.0.0.1:8000/api/recipes/' + id)), {
+    headers: {
+      Authorization: `Bearer ${storeAuthentification.JWT}`
+    }
+  }).then((reponsehttp) => {
+    if (reponsehttp.status === 200) {
+      reponsehttp.json().then((data) => {
+        recipe.value = data
+      })
+    } else if (reponsehttp.status === 401) {
+      flashMessage.show({
+        type: 'error',
+        title: 'Vous devez être connecté et majeur pour accéder à cette page'
+      })
+      router.push('/home')
+    } else {
+      flashMessage.show({
+        type: 'error',
+        title: 'Erreur lors du chargement de la recette'
+      })
+      router.push('/home')
+    }
+  })
 })
 </script>
 

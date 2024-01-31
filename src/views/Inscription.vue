@@ -6,7 +6,7 @@ import { flashMessage } from '@smartweb/vue-flash-message'
 const inscriptionUser = ref({
   login: '',
   plainPassword: '',
-  adresseEmail: '',
+  mailAdress: '',
   dateOfBirth: ''
 })
 
@@ -23,16 +23,16 @@ function inscription(): void {
         router.push('/home')
         flashMessage.show({
           type: 'success',
-          title: 'Vous êtes connecté'
+          title: 'Vous êtes inscrit'
         })
       } else {
         inscriptionUser.value.login = ''
         inscriptionUser.value.plainPassword = ''
         inscriptionUser.value.dateOfBirth = ''
-        inscriptionUser.value.adresseEmail = ''
+        inscriptionUser.value.mailAdress = ''
         flashMessage.show({
           type: 'error',
-          title: 'Identifiant ou mot de passe incorrect'
+          title: 'Erreurs dans les informations saisies'
         })
       }
     })
@@ -58,7 +58,7 @@ function inscription(): void {
       </div>
       <div class="group">
         <label>Mail</label>
-        <input v-model="inscriptionUser.adresseEmail" />
+        <input v-model="inscriptionUser.mailAdress" />
         <p></p>
       </div>
       <div class="group">
