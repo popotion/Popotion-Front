@@ -32,7 +32,7 @@ const filteredRecipes: Ref<Recipe[]> = ref(recipes.value)
 const selectedIngredient: Ref<string> = ref('')
 
 onMounted(async () => {
-  const response = await fetch('http://127.0.0.1:8000/api/recipes')
+  const response = await fetch('http://api.iut.romainmillan.fr/api/recipes')
   const reponseJSON = await response.json()
   recipes.value = reponseJSON['hydra:member']
   nbRecipes.value = recipes.value.length

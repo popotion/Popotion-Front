@@ -63,7 +63,7 @@ function removeComposition(index: number) {
 }
 
 async function envoyer() {
-  var urlApi = 'http://127.0.0.1:8000/api/image/'
+  var urlApi = 'http://api.iut.romainmillan.fr/api/image/'
   var inputElement = document.getElementById('imageFile') as HTMLInputElement
   // Vérification qu'un fichier a été sélectionné
   if (inputElement?.files?.length === 0) {
@@ -91,7 +91,7 @@ async function envoyer() {
   }
 
   newRecipe.value.imageName = nomImage
-  response = await fetch('http://127.0.0.1:8000/api/recipes', {
+  response = await fetch('http://api.iut.romainmillan.fr/api/recipes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/ld+json',

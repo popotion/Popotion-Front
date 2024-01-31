@@ -7,7 +7,7 @@ const link = ref({
 })
 
 async function stripe() {
-  const response = await fetch('http://127.0.0.1:8000/api/premium/subscribe', {
+  const response = await fetch('http://api.iut.romainmillan.fr/api/premium/subscribe', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${storeAuthentification.JWT}`

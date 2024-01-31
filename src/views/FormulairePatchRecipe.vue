@@ -27,7 +27,7 @@ const recipeId = router.currentRoute.value.params.id
 const emit = defineEmits<{ updated: [] }>()
 
 onMounted(async () => {
-  const response = await fetch(`http://127.0.0.1:8000/api/recipes/${recipeId}`, {
+  const response = await fetch(`http://api.iut.romainmillan.fr/api/recipes/${recipeId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/ld+json',
@@ -108,7 +108,7 @@ function transformDataForPatch(data: any) {
 }
 
 async function envoyer() {
-  const response = await fetch(`http://127.0.0.1:8000/api/recipes/${recipeId}`, {
+  const response = await fetch(`http://api.iut.romainmillan.fr/api/recipes/${recipeId}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/merge-patch+json',

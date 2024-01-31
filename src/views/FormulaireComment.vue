@@ -13,7 +13,7 @@ function envoyer() {
     message: message.value,
     recipe: 'api/recipes/' + id
   }
-  fetch('http://127.0.0.1:8000/api/comments', {
+  fetch('http://api.iut.romainmillan.fr/api/comments', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/ld+json',

@@ -15,7 +15,7 @@ const checkIfFavorite = async () => {
 }
 
 function deleteRecipe() {
-  fetch(`http://127.0.0.1:8000/api/recipes/${props.recipe.id}`, {
+  fetch(`http://api.iut.romainmillan.fr/api/recipes/${props.recipe.id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${storeAuthentification.JWT}`
@@ -38,7 +38,7 @@ function deleteRecipe() {
 }
 
 const isFavorite = async () => {
-  const response = await fetch(`http://127.0.0.1:8000/api/users/${storeAuthentification.id}`, {
+  const response = await fetch(`http://api.iut.romainmillan.fr/api/users/${storeAuthentification.id}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${storeAuthentification.JWT}`
@@ -52,7 +52,7 @@ const isFavorite = async () => {
 }
 
 const addToFavorites = async () => {
-  const response = await fetch(`http://127.0.0.1:8000/api/favorites`, {
+  const response = await fetch(`http://api.iut.romainmillan.fr/api/favorites`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/ld+json',
@@ -85,7 +85,7 @@ const removeFromFavorites = async () => {
     })
     return
   }
-  const response = await fetch(`http://127.0.0.1:8000/api/favorites/${favoriteId}`, {
+  const response = await fetch(`http://api.iut.romainmillan.fr/api/favorites/${favoriteId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${storeAuthentification.JWT}`
@@ -106,7 +106,7 @@ const removeFromFavorites = async () => {
 }
 
 const getFavoriteId = async () => {
-  const response = await fetch(`http://127.0.0.1:8000/api/users/${storeAuthentification.id}`, {
+  const response = await fetch(`http://api.iut.romainmillan.fr/api/users/${storeAuthentification.id}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${storeAuthentification.JWT}`
@@ -138,7 +138,7 @@ onMounted(async () => {
     </div>
     <div class="img-container">
       <span class="imageName">Image</span>
-      <img :src="'http://127.0.0.1:8000/api/getImage/' + props.recipe.imageName" alt="image" />
+      <img :src="'http://api.iut.romainmillan.fr/api/getImage/' + props.recipe.imageName" alt="image" />
     </div>
     <div
       class="categories mt"

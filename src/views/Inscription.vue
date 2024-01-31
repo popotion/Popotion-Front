@@ -11,7 +11,7 @@ const inscriptionUser = ref({
 })
 
 function inscription(): void {
-  fetch('http://127.0.0.1:8000/api/users', {
+  fetch('http://api.iut.romainmillan.fr/api/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/ld+json'

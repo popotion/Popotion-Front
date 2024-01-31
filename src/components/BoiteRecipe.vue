@@ -17,7 +17,7 @@ const props = defineProps<{ recipe: Recipe }>()
     <div class="content clickable">
       <img
         style="width: 100px; height: 100px; object-fit: cover"
-        :src="'http://127.0.0.1:8000/api/getImage/' + props.recipe.imageName"
+        :src="'http://api.iut.romainmillan.fr/api/getImage/' + props.recipe.imageName"
         alt="image"
       />
       <h2>{{ recipe.title }}</h2>

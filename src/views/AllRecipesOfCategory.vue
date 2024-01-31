@@ -28,7 +28,7 @@ const recipes: Ref<any[]> = ref([
 ])
 
 onMounted(async () => {
-  const response = await fetch(`http://127.0.0.1:8000/api/categories/${categoryId}/recipes`)
+  const response = await fetch(`http://api.iut.romainmillan.fr/api/categories/${categoryId}/recipes`)
   const reponseJSON = await response.json()
   recipes.value = reponseJSON['hydra:member']
 })
